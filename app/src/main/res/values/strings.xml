@@ -1,8 +1,17 @@
 <resources>
-    <string name="app_name">Daily Notes</string>
+  <string name="app_name">Daily Notes</string>
 
-    <string name="title_activity_splash_screen">SplashScreen</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="version">1.0.0</string>
+  <string name="title_activity_splash_screen">SplashScreen</string>
+  <string name="dummy_button">Dummy Button</string>
+  <string name="dummy_content">DUMMY\nCONTENT</string>
+  <string name="version">1.0.0</string>
+  <string name="login">Login</string>
+  <string name="i_forgot_pass">I forgot my password</string>
+  <string name="signup">Sign up</string>
+  <string name="create_account">Create new account</string>
+  <string name="email">email</string>
+  <string name="username">username</string>
+  <string name="password">password</string>
+  <string name="repeat_password">repeat password</string>
+  <string name="no_notes">you have no notes</string>
 </resources>

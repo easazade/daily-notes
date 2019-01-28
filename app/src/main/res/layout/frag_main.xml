@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <com.google.android.material.appbar.AppBarLayout
+      android:id="@+id/mMainAppBar"
+      android:layout_width="match_parent"
+      android:layout_height="132dp"
+      android:background="@color/colorAccent"
+      >
+
+    <com.google.android.material.appbar.CollapsingToolbarLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed"
+        app:statusBarScrim="?attr/colorPrimary"
+        >
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          >
+
+        <TextView
+            android:id="@+id/mMainUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/tag_bg"
+            android:fontFamily="@font/karla"
+            android:paddingBottom="3dp"
+            android:paddingEnd="10sp"
+            android:paddingStart="10sp"
+            android:paddingTop="3dp"
+            android:text="username"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/mMainEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/tag_bg"
+            android:fontFamily="@font/karla"
+            android:paddingBottom="3dp"
+            android:paddingEnd="10sp"
+            android:paddingStart="10sp"
+            android:paddingTop="3dp"
+            android:text="email"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mMainUserName"
+            />
+
+        <TextView
+            android:id="@+id/mMainNotesCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/tag_bg"
+            android:fontFamily="@font/karla"
+            android:paddingBottom="3dp"
+            android:paddingEnd="10sp"
+            android:paddingStart="10sp"
+            android:paddingTop="3dp"
+            android:text="notes : 24"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mMainEmail"
+            />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+  </com.google.android.material.appbar.AppBarLayout>
+
+  <androidx.recyclerview.widget.RecyclerView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      />
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="12dp"
+      app:backgroundTint="@color/secondAccent"
+      app:fabSize="normal"
+      app:layout_gravity="bottom|end"
+      />
+
+  <TextView
+      android:id="@+id/mMainNoNotesMsg"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginBottom="120dp"
+      android:fontFamily="@font/karla"
+      android:text="@string/no_notes"
+      android:textColor="@color/dark"
+      android:textSize="20sp"
+      android:visibility="gone"
+      />
+
+  <ImageView
+      android:id="@+id/mMainTransparentLogo"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginTop="50dp"
+      android:src="@drawable/logo_transparent"
+      android:visibility="gone"
+      />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

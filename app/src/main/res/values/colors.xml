@@ -20,6 +20,7 @@
     <color name="red">#dd0000</color>
 
     <color name="black_overlay">#66000000</color>
+  <color name="link_text">#6EDCFF</color>
 
 
 </resources>
