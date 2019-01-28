@@ -14,4 +14,8 @@
   <string name="password">password</string>
   <string name="repeat_password">repeat password</string>
   <string name="no_notes">you have no notes</string>
+  <string name="title">Title</string>
+  <string name="enter_title">write a title</string>
+  <string name="write_your_note">write a note</string>
+  <string name="save">Save</string>
 </resources>

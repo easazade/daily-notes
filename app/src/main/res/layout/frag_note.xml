@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <View
+      android:id="@+id/mNoteToolbar"
+      android:layout_width="0dp"
+      android:layout_height="75dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:background="@sample/notes_colors"
+      />
+
+  <ImageView
+      android:id="@+id/mNoteDelete"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:src="@drawable/ic_trach"
+      app:layout_constraintBottom_toBottomOf="@+id/mNoteToolbar"
+      app:layout_constraintEnd_toEndOf="@+id/mNoteToolbar"
+      app:layout_constraintTop_toTopOf="@+id/mNoteToolbar"
+      />
+
+  <ImageView
+      android:id="@+id/mNoteEdit"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="12dp"
+      android:src="@drawable/ic_edit"
+      app:layout_constraintBottom_toBottomOf="@+id/mNoteToolbar"
+      app:layout_constraintEnd_toStartOf="@+id/mNoteDelete"
+      app:layout_constraintTop_toTopOf="@+id/mNoteToolbar"
+      />
+
+  <TextView
+      android:id="@+id/mNoteTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="10dp"
+      android:layout_marginTop="8dp"
+      android:background="@drawable/tag_bg"
+      android:fontFamily="@font/karla"
+      android:paddingBottom="3dp"
+      android:paddingEnd="10sp"
+      android:paddingStart="10sp"
+      android:paddingTop="3dp"
+      android:textColor="@color/colorAccent"
+      android:textSize="14sp"
+      app:layout_constraintStart_toStartOf="@id/mNoteToolbar"
+      app:layout_constraintTop_toTopOf="@id/mNoteToolbar"
+      tools:text="@sample/title"
+      />
+
+  <TextView
+      android:id="@+id/mNoteDate"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="8dp"
+      android:layout_marginStart="10dp"
+      android:layout_marginTop="8dp"
+      android:background="@drawable/tag_bg"
+      android:fontFamily="@font/karla"
+      android:paddingBottom="3dp"
+      android:paddingEnd="10sp"
+      android:paddingStart="10sp"
+      android:paddingTop="3dp"
+      android:textColor="@color/colorAccent"
+      android:textSize="14sp"
+      app:layout_constraintBottom_toBottomOf="@id/mNoteToolbar"
+      app:layout_constraintStart_toStartOf="@id/mNoteToolbar"
+      tools:text="@sample/title"
+      />
+
+  <androidx.core.widget.NestedScrollView
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/mNoteToolbar"
+      app:layout_constraintVertical_bias="0.0"
+      >
+
+    <TextView
+        android:id="@+id/mNoteContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingEnd="15dp"
+        android:paddingStart="15dp"
+        android:textSize="20sp"
+        tools:text="@sample/loremipsum"
+        />
+
+  </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
