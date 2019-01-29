@@ -30,4 +30,5 @@ abstract class BaseActivity : AppCompatActivity() {
         App.component().navigator().back()
     }
 
+
 }
