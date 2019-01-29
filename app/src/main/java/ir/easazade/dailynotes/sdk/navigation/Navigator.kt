@@ -1,7 +1,7 @@
 package ir.easazade.dailynotes.sdk.navigation
 
 import androidx.fragment.app.Fragment
-import ir.easazade.dailynotes.screens.main.MainFrag
+import ir.easazade.dailynotes.screens.main.HomeFrag
 import ir.easazade.dailynotes.sdk.BaseActivity
 
 class Navigator<HomeState : ViewState, HomeArg : Arguments> private constructor(
@@ -18,7 +18,7 @@ class Navigator<HomeState : ViewState, HomeArg : Arguments> private constructor(
 
 //    private val LAST_KNOWN_STATE = "9ajwdja0wd0-last_KnoWn_StAtE"
 //
-//    private val MAIN_FRAG_KEY = MainFrag.State::class.java.simpleName
+//    private val MAIN_FRAG_KEY = HomeFrag.State::class.java.simpleName
 //    private val LOGIN_FRAG_KEY = LoginFrag.State::class.java.simpleName
 //    private val SIGNUP_FRAG_KEY = SignUpFrag.State::class.java.simpleName
 //    private val SEARCH_FRAG_KEY = SearchFrag.State::class.java.simpleName
@@ -62,7 +62,7 @@ class Navigator<HomeState : ViewState, HomeArg : Arguments> private constructor(
 //            val baseFrag = fragment as BaseFrag<ViewState, Arguments>
 //            val currentState = baseFrag.getCurrentState()
 //            when (currentState) {
-//                is MainFrag.State -> {
+//                is HomeFrag.State -> {
 //                    bundle.putString(LAST_KNOWN_STATE, MAIN_FRAG_KEY)
 //                    currentState.persist(bundle)
 //                }
@@ -102,7 +102,7 @@ class Navigator<HomeState : ViewState, HomeArg : Arguments> private constructor(
 //        var viewState: ViewState? = null
 //        if (key != null) {
 //            when (key) {
-//                MAIN_FRAG_KEY -> viewState = MainFrag.State.createFrom(bundle)
+//                MAIN_FRAG_KEY -> viewState = HomeFrag.State.createFrom(bundle)
 //                DESIGN_FRAG_KEY -> viewState = DesignFrag.State.createFrom(bundle)
 //                PROFILE_FRAG_KEY -> viewState = ProfileFrag.State.createFrom(bundle)
 //                LISTARTIST_FRAG_KEY -> viewState = ListArtistFrag.State.createFrom(bundle)
@@ -120,7 +120,7 @@ class Navigator<HomeState : ViewState, HomeArg : Arguments> private constructor(
 //                TEST3_FRAG_KEY
 //                TESTHOME_FRAG_KEY
 //
-//                else -> destination(MainFrag()).withArguments(MainFrag.Args()).go()
+//                else -> destination(HomeFrag()).withArguments(HomeFrag.Args()).go()
 //            }
 //        }
 //        navigateToDestinationFromViewState(viewState, false)
@@ -211,11 +211,11 @@ class Navigator<HomeState : ViewState, HomeArg : Arguments> private constructor(
                 frag.viewState = lastState
                 NavigationAction(frag, activity, placeHolderResId, navigator)
             } else {
-                if (holderClass.isAssignableFrom(MainFrag::class.java)) {
-                    navigator.destination(MainFrag()).withArguments(MainFrag.Args()).go()
+                if (holderClass.isAssignableFrom(HomeFrag::class.java)) {
+                    navigator.destination(HomeFrag()).withArguments(HomeFrag.Args()).go()
                 } else {
-                    navigator.destination(MainFrag())
-                        .backToLastInstanceIfAnyAny(MainFrag.State::class.java)
+                    navigator.destination(HomeFrag())
+                        .backToLastInstanceIfAnyAny(HomeFrag.State::class.java)
                         .go()
                 }
                 NavigationAction(frag, activity, placeHolderResId, navigator)
@@ -246,7 +246,7 @@ class Navigator<HomeState : ViewState, HomeArg : Arguments> private constructor(
                 .beginTransaction()
                 .replace(placeHolderResId, frag)
                 .commit()
-            if (frag is MainFrag)
+            if (frag is HomeFrag)
                 navigator.unlockMenu()
             else
                 navigator.lockMenu()
@@ -265,7 +265,7 @@ class Navigator<HomeState : ViewState, HomeArg : Arguments> private constructor(
                         .beginTransaction()
                         .replace(placeHolderResId, frag)
                         .commit()
-                    if (frag is MainFrag)
+                    if (frag is HomeFrag)
                         navigator.unlockMenu()
                     else
                         navigator.lockMenu()

@@ -1,8 +1,11 @@
 package ir.easazade.dailynotes.sdk
 
 import android.app.Activity
+import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import ir.easazade.dailynotes.App
+import ir.easazade.dailynotes.utils.AppContextWrapper
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -19,8 +22,12 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(AppContextWrapper.wrap(newBase))
+    }
+
     override fun onBackPressed() {
-//        App.component().navigator().back()
+        App.component().navigator().back()
     }
 
 }

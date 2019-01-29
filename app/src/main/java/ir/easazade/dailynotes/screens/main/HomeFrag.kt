@@ -9,7 +9,7 @@ import ir.easazade.dailynotes.sdk.navigation.Arguments
 import ir.easazade.dailynotes.sdk.navigation.BaseFrag
 import ir.easazade.dailynotes.sdk.navigation.ViewState
 
-class MainFrag : BaseFrag<MainFrag.State, MainFrag.Args>() {
+class HomeFrag : BaseFrag<HomeFrag.State, HomeFrag.Args>() {
 
     override fun getArgumentsAndSetProperties(args: Args) {
 
