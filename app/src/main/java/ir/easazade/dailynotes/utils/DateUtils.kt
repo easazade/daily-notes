@@ -1,4 +1,4 @@
-package ir.alirezaisazade.mars.utils
+package ir.easazade.dailynotes.utils
 
 import java.sql.Timestamp
 import java.util.*

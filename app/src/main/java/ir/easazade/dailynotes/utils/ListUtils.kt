@@ -1,49 +1,7 @@
-package ir.alirezaisazade.mars.utils
+package ir.easazade.dailynotes.utils
 
-import ir.alirezaisazade.mars.model.entities.Design
 import java.util.*
-import kotlin.Comparator
 
-
-fun MutableList<Design>.replaceDesignIfExists(newItem: Design, startingPosition: Int? = null) {
-    val index = Stack<Int>()
-    for (i in (startingPosition ?: 0) until size) {
-        if (get(i).matches(newItem) && index.isEmpty()) {
-            index.add(i)
-        }
-    }
-    if (index.isNotEmpty()) {
-        val position = index.pop()
-        removeAt(position)
-        add(position, newItem)
-        replaceDesignIfExists(newItem, position + 1)
-    }
-}
-
-fun MutableList<Design>.replaceOrAddDesign(newDesign: Design) {
-    var matchExists = false
-    for (i in 0 until size) {
-        if (newDesign.matches(get(i)))
-            matchExists = true
-    }
-    if (matchExists)
-        replaceDesignIfExists(newDesign)
-    else
-        add(newDesign)
-}
-
-fun MutableList<Design>.removeDesignIfExists(item: Design) {
-    val index = Stack<Int>()
-    for (i in 0 until size) {
-        if (get(i).matches(item) && index.isEmpty()) {
-            index.add(i)
-        }
-    }
-    if (index.isNotEmpty()) {
-        removeAt(index.pop())
-        removeDesignIfExists(item)
-    }
-}
 
 fun <T> MutableList<T>.removeIfExists(item: T) {
     val index = Stack<Int>()
@@ -72,27 +30,27 @@ class ListUtils {
             return mutableListOf()
         }
 
-        fun sortByDate(list: MutableList<Design>): MutableList<Design> =
-            list.apply {
-                sortWith(Comparator { d1, d2 ->
-                    when {
-                        d1.datePosted.time > d2.datePosted.time -> -1
-                        d1.datePosted.time < d2.datePosted.time -> 1
-                        d1.datePosted.time == d2.datePosted.time -> 0
-                        else -> 0
-                    }
-                })
-            }
-
-        fun hasDesign(list: MutableList<Design>, design: Design): Boolean =
-            list.run {
-                var isMatch = false
-                forEach {
-                    if (it.matches(design))
-                        isMatch = true
-                }
-                return@run isMatch
-            }
+//        fun sortByDate(list: MutableList<Design>): MutableList<Design> =
+//            list.apply {
+//                sortWith(Comparator { d1, d2 ->
+//                    when {
+//                        d1.datePosted.time > d2.datePosted.time -> -1
+//                        d1.datePosted.time < d2.datePosted.time -> 1
+//                        d1.datePosted.time == d2.datePosted.time -> 0
+//                        else -> 0
+//                    }
+//                })
+//            }
+//
+//        fun hasDesign(list: MutableList<Design>, design: Design): Boolean =
+//            list.run {
+//                var isMatch = false
+//                forEach {
+//                    if (it.matches(design))
+//                        isMatch = true
+//                }
+//                return@run isMatch
+//            }
 
 
         fun <T> compareLists(
@@ -194,6 +152,18 @@ class ListUtils {
                     lisHasItem = true
             }
             return lisHasItem
+        }
+
+        fun <T> firstMatch(
+            list: List<T>,
+            matchingPredicate: (listItem: T) -> Boolean
+        ): T? {
+            var match: T? = null
+            list.forEach { listItem ->
+                if (matchingPredicate(listItem))
+                    match = listItem
+            }
+            return match
         }
 
     }
