@@ -1,4 +1,4 @@
-package ir.easazade.dailynotes
+package ir.easazade.dailynotes.helpers
 
 import ir.easazade.dailynotes.businesslogic.entities.Note
 import ir.easazade.dailynotes.businesslogic.entities.User

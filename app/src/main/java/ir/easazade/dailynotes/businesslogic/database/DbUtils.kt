@@ -14,7 +14,7 @@ class DbUtils {
             dbUser.uuid,
             dbUser.username,
             dbUser.email,
-            dbUser.notes.map { dbNoteToNote(it) }
+            dbUser.notes.map { dbNoteToNote(it) }.toMutableList()
         )
 
         fun dbNoteToNote(dbNote: DbNote): Note = Note(

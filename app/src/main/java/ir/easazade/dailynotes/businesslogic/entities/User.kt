@@ -4,5 +4,5 @@ data class User(
     val uuid: String,
     val username: String,
     val email: String,
-    val notes: List<Note>
+    val notes: MutableList<Note>
 )

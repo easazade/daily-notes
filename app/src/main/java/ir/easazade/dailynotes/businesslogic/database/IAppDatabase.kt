@@ -8,6 +8,7 @@ import ir.easazade.dailynotes.businesslogic.entities.User
 interface IAppDatabase {
 
     fun getUser(): User?
+    fun saveUser(user: User)
     fun saveAuthInfo(authInfo: AuthInfo)
     fun getAuthInfo(): AuthInfo?
     fun saveAboutUs(aboutUs: AboutUs)

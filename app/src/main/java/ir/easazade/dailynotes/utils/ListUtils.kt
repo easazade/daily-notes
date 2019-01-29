@@ -122,13 +122,13 @@ class ListUtils {
         fun <T> addAllIfNotExists(
             list: MutableList<T>,
             newItems: List<T>,
-            matchPredicate: (t1: T, t2: T) -> Boolean
+            matchingPredicate: (t1: T, t2: T) -> Boolean
         ): List<Int> {
             val indexOfNewItemsCanBeAdded = Stack<Int>()
             for (i in 0 until newItems.size) {
                 var canBeAdded = true
                 for (j in 0 until list.size) {
-                    if (matchPredicate(newItems[i], list[j]))
+                    if (matchingPredicate(newItems[i], list[j]))
                         canBeAdded = false
                 }
                 if (canBeAdded) indexOfNewItemsCanBeAdded.add(i)
