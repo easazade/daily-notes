@@ -1,5 +1,7 @@
 package ir.easazade.dailynotes.businesslogic.repos
 
-class UserRepository : IUserRepository {
+import ir.easazade.dailynotes.businesslogic.server.IAppServer
+
+class UserRepository(server: IAppServer) : IUserRepository {
 
 }

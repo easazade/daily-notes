@@ -6,20 +6,20 @@ import ir.easazade.dailynotes.businesslogic.states.ServerState
 
 interface IAppServer {
     //user requests
-    fun signup(): Observable<ServerState>
+    fun signup(email: String, username: String, pass: String, passRepeat: String): Observable<ServerState>
 
     fun sync(): Observable<ServerState>
 
-    fun login(): Observable<ServerState>
+    fun login(email: String, pass: String): Observable<ServerState>
 
     //note requests
     fun createNote(note: Note): Observable<ServerState>
 
     fun editNote(
         noteId: String,
-        title: String,
-        content: String,
-        color: Int
+        title: String? = null,
+        content: String? = null,
+        color: Int? = null
     ): Observable<ServerState>
 
     fun deleteNote(noteId: String): Observable<ServerState>

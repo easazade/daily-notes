@@ -1,19 +1,20 @@
 package ir.easazade.dailynotes.sdk.navigation
 
 import androidx.fragment.app.Fragment
+import ir.easazade.dailynotes.screens.login.LoginFrag
 import ir.easazade.dailynotes.screens.main.HomeFrag
 import ir.easazade.dailynotes.sdk.BaseActivity
 
 class Navigator<HomeState : ViewState, HomeArg : Arguments> private constructor(
-    private val activity: BaseActivity,
-    private val placeHolder: Int,
-    private var mStack: ViewStateStack,
-    private val homeFragClass: Class<HomeState>,
-    private val homeFragFactory: () -> BaseFrag<HomeState, HomeArg>,
-    private val homeFragDefaultArgs: () -> HomeArg,
-    private val isHomeFrag: (Fragment) -> Boolean,
-    private val lockMenu: () -> Unit,
-    private val unlockMenu: () -> Unit
+  private val activity: BaseActivity,
+  private val placeHolder: Int,
+  private var mStack: ViewStateStack,
+  private val homeFragViewStateClass: Class<HomeState>,
+  private val homeFragFactory: () -> BaseFrag<HomeState, HomeArg>,
+  private val homeFragDefaultArgs: () -> HomeArg,
+  private val isHomeFrag: (Fragment) -> Boolean,
+  private val lockMenu: () -> Unit,
+  private val unlockMenu: () -> Unit
 ) {
 
 //    private val LAST_KNOWN_STATE = "9ajwdja0wd0-last_KnoWn_StAtE"
@@ -36,25 +37,24 @@ class Navigator<HomeState : ViewState, HomeArg : Arguments> private constructor(
 //    private val TEST3_FRAG_KEY = TestFrag3.State::class.java.simpleName
 //    private val TESTHOME_FRAG_KEY = TestHomeFrag.State::class.java.simpleName
 
-
-    companion object {
-        fun <HomeState : ViewState, HomeArg : Arguments> create(
-            activity: BaseActivity,
-            placeHolder: Int,
-            stack: ViewStateStack,
-            homeFragClass: Class<HomeState>,
-            homeFragFactory: () -> BaseFrag<HomeState, HomeArg>,
-            homeFragDefaultArgs: () -> HomeArg,
-            homeFragValidator: (Fragment) -> Boolean,
-            lockMenu: () -> Unit,
-            unlockMenu: () -> Unit
-        ): Navigator<HomeState, HomeArg> {
-            return Navigator(
-                activity, placeHolder, stack, homeFragClass,
-                homeFragFactory, homeFragDefaultArgs, homeFragValidator, lockMenu, unlockMenu
-            )
-        }
+  companion object {
+    fun <HomeState : ViewState, HomeArg : Arguments> create(
+      activity: BaseActivity,
+      placeHolder: Int,
+      stack: ViewStateStack,
+      homeFragViewStateClass: Class<HomeState>,
+      homeFragFactory: () -> BaseFrag<HomeState, HomeArg>,
+      homeFragDefaultArgs: () -> HomeArg,
+      homeFragValidator: (Fragment) -> Boolean,
+      lockMenu: () -> Unit,
+      unlockMenu: () -> Unit
+    ): Navigator<HomeState, HomeArg> {
+      return Navigator(
+          activity, placeHolder, stack, homeFragViewStateClass,
+          homeFragFactory, homeFragDefaultArgs, homeFragValidator, lockMenu, unlockMenu
+      )
     }
+  }
 
 //    fun persistCurrentState(bundle: Bundle) {
 //        val fragment = activity.supportFragmentManager.findFragmentById(placeHolder)
@@ -126,153 +126,161 @@ class Navigator<HomeState : ViewState, HomeArg : Arguments> private constructor(
 //        navigateToDestinationFromViewState(viewState, false)
 //    }
 
-    fun back(saveCurrentFragState: Boolean = false) {
-        val viewState = mStack.popLastState()
-        navigateToDestinationFromViewState(viewState, saveCurrentFragState)
+  fun back(saveCurrentFragState: Boolean = false) {
+    val viewState = mStack.popLastState()
+    navigateToDestinationFromViewState(viewState, saveCurrentFragState)
 
-    }
+  }
 
-    private fun navigateToDestinationFromViewState(
-        viewState: ViewState?,
-        saveCurrentFragState: Boolean
-    ) {
-        if (viewState != null) {
-            if (viewState::class.java.isAssignableFrom(homeFragClass)) {
-                mStack.clear()
-                destination(homeFragFactory.invoke()).withState(viewState as HomeState).go()
-            } else {
-                when (viewState) {
-//                    is LoginFrag.State -> destination(LoginFrag()).withState(viewState).go(
-//                        saveCurrentFragState
-//                    )
-//
-                    else -> {
-                        activity.moveTaskToBack(true)
-                    }
-                }
-            }
-        } else if (activity.supportFragmentManager.findFragmentById(placeHolder)
-                ?.let { isHomeFrag(it) } == true
-        ) {
-            activity.moveTaskToBack(true)
-        } else {
-            destination(homeFragFactory()).withArguments(homeFragDefaultArgs()).go()
-        }
-    }
-
-    fun <T : BaseFrag<S, R>, S : ViewState, R : Arguments> destination(baseFragment: T): ConfigBuilder<T, S, R> {
-        return ConfigBuilder(baseFragment, activity, placeHolder, this)
-    }
-
-    fun forceClearBackStack() {
+  private fun navigateToDestinationFromViewState(
+    viewState: ViewState?,
+    saveCurrentFragState: Boolean
+  ) {
+    if (viewState != null) {
+      if (viewState::class.java.isAssignableFrom(homeFragViewStateClass)) {
         mStack.clear()
+        destination(homeFragFactory.invoke()).withState(viewState as HomeState)
+            .go()
+      } else {
+        when (viewState) {
+          is LoginFrag.State -> destination(LoginFrag()).withState(viewState).go(
+              saveCurrentFragState
+          )
+          else -> {
+            activity.moveTaskToBack(true)
+          }
+        }
+      }
+    } else if (activity.supportFragmentManager.findFragmentById(placeHolder)
+            ?.let { isHomeFrag(it) } == true
+    ) {
+      activity.moveTaskToBack(true)
+    } else if (activity.supportFragmentManager.findFragmentById(placeHolder)
+            ?.let { it is LoginFrag } == true
+    ) {
+      activity.moveTaskToBack(true)
+    } else {
+      destination(homeFragFactory()).withArguments(homeFragDefaultArgs())
+          .go()
     }
+  }
+
+  fun <T : BaseFrag<S, R>, S : ViewState, R : Arguments> destination(baseFragment: T): ConfigBuilder<T, S, R> {
+    return ConfigBuilder(baseFragment, activity, placeHolder, this)
+  }
+
+  fun forceClearBackStack() {
+    mStack.clear()
+  }
 
 //    fun <S : ViewState> searchForLastStateOf(viewStateClass: Class<S>) =
 //            mStack.popLastStateOf(viewStateClass,false)
 
+  class ConfigBuilder<T : BaseFrag<S, R>, S : ViewState, R : Arguments>(
+    private val frag: BaseFrag<S, R>,
+    private val activity: BaseActivity,
+    private val placeHolderResId: Int,
+    private val navigator: Navigator<*, *>
+  ) {
 
-    class ConfigBuilder<T : BaseFrag<S, R>, S : ViewState, R : Arguments>(
-        private val frag: BaseFrag<S, R>,
-        private val activity: BaseActivity,
-        private val placeHolderResId: Int,
-        private val navigator: Navigator<*, *>
-    ) {
-
-        fun withState(state: S, updateStateValues: Boolean = true): NavigationAction<T, S, R> {
-            var pageState = state
-            if (updateStateValues)
-                pageState = pageState.createUpdate() as S
-            frag.viewState = pageState
-            frag.args = pageState.args as R
-            return NavigationAction(frag, activity, placeHolderResId, navigator)
-        }
-
-        fun withArguments(args: R): NavigationAction<T, S, R> {
-            frag.args = args
-            return NavigationAction(frag, activity, placeHolderResId, navigator)
-        }
-
-        /***
-         * this method is similar to back button but to navigate up the hierarchy of
-         * pages in our application
-         *
-         * this method will clears the stack up to the last viewState of the given type
-         * and if no viewState of the type is found in stack it will lunch mainFrag with
-         * lastState if any
-         */
-        fun backToLastInstanceIfAnyAny(
-            holderClass: Class<S>,
-            clearTop: Boolean = true
-        ): NavigationAction<T, S, R> {
-            val lastState = navigator.mStack.popLastStateOf(holderClass, clearTop)
-            return if (lastState != null) {
-                frag.args = lastState.args as R
-                frag.viewState = lastState
-                NavigationAction(frag, activity, placeHolderResId, navigator)
-            } else {
-                if (holderClass.isAssignableFrom(HomeFrag::class.java)) {
-                    navigator.destination(HomeFrag()).withArguments(HomeFrag.Args()).go()
-                } else {
-                    navigator.destination(HomeFrag())
-                        .backToLastInstanceIfAnyAny(HomeFrag.State::class.java)
-                        .go()
-                }
-                NavigationAction(frag, activity, placeHolderResId, navigator)
-            }
-        }
-
-
+    fun withState(
+      state: S,
+      updateStateValues: Boolean = true
+    ): NavigationAction<T, S, R> {
+      var pageState = state
+      if (updateStateValues)
+        pageState = pageState.createUpdate() as S
+      frag.viewState = pageState
+      frag.args = pageState.args as R
+      return NavigationAction(frag, activity, placeHolderResId, navigator)
     }
 
-    class NavigationAction<T : BaseFrag<S, R>, S : ViewState, R : Arguments>(
-        private val frag: BaseFrag<S, R>,
-        private val activity: BaseActivity,
-        private val placeHolderResId: Int,
-        private val navigator: Navigator<*, *>
-    ) {
-        fun go(saveStateOfCurrentFrag: Boolean = true) {
-            if (saveStateOfCurrentFrag) {
-                val fragment = activity.supportFragmentManager.findFragmentById(placeHolderResId)
-                fragment?.let {
-                    val baseFrag = fragment as BaseFrag<ViewState, Arguments>
-                    navigator.mStack.saveState(baseFrag.getCurrentState())
-                }
-            }
-            if (navigator.isHomeFrag.invoke(frag)) {
-                navigator.mStack.clear()
-            }
-            activity.supportFragmentManager
-                .beginTransaction()
-                .replace(placeHolderResId, frag)
-                .commit()
-            if (frag is HomeFrag)
-                navigator.unlockMenu()
-            else
-                navigator.lockMenu()
-        }
-
-        fun <T : BaseFrag<S, R>> goIfNotThere(
-            fragClass: Class<T>, saveStateOfCurrentFrag: Boolean = true
-        ) {
-            val fragment = activity.supportFragmentManager.findFragmentById(placeHolderResId)
-            fragment?.let { fragg ->
-                val baseFrag = fragg as BaseFrag<ViewState, Arguments>
-                if (!baseFrag::class.java.isAssignableFrom(fragClass)) {
-                    if (saveStateOfCurrentFrag)
-                        navigator.mStack.saveState(baseFrag.getCurrentState())
-                    activity.supportFragmentManager
-                        .beginTransaction()
-                        .replace(placeHolderResId, frag)
-                        .commit()
-                    if (frag is HomeFrag)
-                        navigator.unlockMenu()
-                    else
-                        navigator.lockMenu()
-                }
-            }
-
-
-        }
+    fun withArguments(args: R): NavigationAction<T, S, R> {
+      frag.args = args
+      return NavigationAction(frag, activity, placeHolderResId, navigator)
     }
+
+    /***
+     * this method is similar to back button but to navigate up the hierarchy of
+     * pages in our application
+     *
+     * this method will clears the stack up to the last viewState of the given type
+     * and if no viewState of the type is found in stack it will lunch mainFrag with
+     * lastState if any
+     */
+    fun backToLastInstanceIfAnyAny(
+      holderClass: Class<S>,
+      clearTop: Boolean = true
+    ): NavigationAction<T, S, R> {
+      val lastState = navigator.mStack.popLastStateOf(holderClass, clearTop)
+      return if (lastState != null) {
+        frag.args = lastState.args as R
+        frag.viewState = lastState
+        NavigationAction(frag, activity, placeHolderResId, navigator)
+      } else {
+        if (holderClass.isAssignableFrom(HomeFrag::class.java)) {
+          navigator.destination(HomeFrag())
+              .withArguments(HomeFrag.Args())
+              .go()
+        } else {
+          navigator.destination(HomeFrag())
+              .backToLastInstanceIfAnyAny(HomeFrag.State::class.java)
+              .go()
+        }
+        NavigationAction(frag, activity, placeHolderResId, navigator)
+      }
+    }
+
+  }
+
+  class NavigationAction<T : BaseFrag<S, R>, S : ViewState, R : Arguments>(
+    private val frag: BaseFrag<S, R>,
+    private val activity: BaseActivity,
+    private val placeHolderResId: Int,
+    private val navigator: Navigator<*, *>
+  ) {
+    fun go(saveStateOfCurrentFrag: Boolean = true) {
+      if (saveStateOfCurrentFrag) {
+        val fragment = activity.supportFragmentManager.findFragmentById(placeHolderResId)
+        fragment?.let {
+          val baseFrag = fragment as BaseFrag<ViewState, Arguments>
+          navigator.mStack.saveState(baseFrag.getCurrentState())
+        }
+      }
+      if (navigator.isHomeFrag.invoke(frag)) {
+        navigator.mStack.clear()
+      }
+      activity.supportFragmentManager
+          .beginTransaction()
+          .replace(placeHolderResId, frag)
+          .commit()
+      if (frag is HomeFrag)
+        navigator.unlockMenu()
+      else
+        navigator.lockMenu()
+    }
+
+    fun <T : BaseFrag<S, R>> goIfNotThere(
+      fragClass: Class<T>,
+      saveStateOfCurrentFrag: Boolean = true
+    ) {
+      val fragment = activity.supportFragmentManager.findFragmentById(placeHolderResId)
+      fragment?.let { fragg ->
+        val baseFrag = fragg as BaseFrag<ViewState, Arguments>
+        if (!baseFrag::class.java.isAssignableFrom(fragClass)) {
+          if (saveStateOfCurrentFrag)
+            navigator.mStack.saveState(baseFrag.getCurrentState())
+          activity.supportFragmentManager
+              .beginTransaction()
+              .replace(placeHolderResId, frag)
+              .commit()
+          if (frag is HomeFrag)
+            navigator.unlockMenu()
+          else
+            navigator.lockMenu()
+        }
+      }
+
+    }
+  }
 }

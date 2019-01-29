@@ -4,7 +4,7 @@ import io.realm.Realm
 import ir.easazade.dailynotes.businesslogic.entities.*
 import ir.easazade.dailynotes.utils.ListUtils
 
-class AppDatabase private constructor(private val provider: RealmProvider) : IAppDatabase {
+open class AppDatabase (private val provider: RealmProvider) : IAppDatabase {
 
     companion object {
         fun createInstance(provider: RealmProvider): AppDatabase = AppDatabase(provider)
