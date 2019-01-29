@@ -25,9 +25,11 @@ class MainActivity : BaseActivity() {
               )
           )
     }
-    if (userViewModel != null)
+    //setting viewModels
+    if (userViewModel == null)
       userViewModel = ViewModelProviders.of(this, App.component().viewModelFactory(this))
           .get(UserViewModel::class.java)
+    //startig ui
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
     if (userVm().isLoggedIn()) {

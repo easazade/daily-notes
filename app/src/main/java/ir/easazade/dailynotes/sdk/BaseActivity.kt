@@ -5,7 +5,6 @@ import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import ir.easazade.dailynotes.App
-import ir.easazade.dailynotes.utils.AppContextWrapper
 import ir.easazade.dailynotes.viewmodels.UserViewModel
 
 const val APP_COMPONENT = "app_component"

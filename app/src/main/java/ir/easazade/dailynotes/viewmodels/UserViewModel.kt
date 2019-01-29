@@ -10,6 +10,6 @@ class UserViewModel(
   private val ui: Scheduler
 ) : ViewModel() {
 
-  fun isLoggedIn(): Boolean = true
+  fun isLoggedIn(): Boolean = false
 
 }

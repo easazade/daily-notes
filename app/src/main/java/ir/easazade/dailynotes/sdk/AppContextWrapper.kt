@@ -1,4 +1,4 @@
-package ir.easazade.dailynotes.utils
+package ir.easazade.dailynotes.sdk
 
 import android.content.Context
 import android.content.res.Configuration
@@ -15,7 +15,7 @@ class AppContextWrapper {
 
             //setFab fixed locale
             //since this app has only one language
-            val locale = Locale("fa")
+            val locale = Locale("en")
             Locale.setDefault(locale)
             val config = Configuration()
             config.locale = locale
