@@ -1,9 +1,12 @@
 package ir.easazade.dailynotes.businesslogic.entities;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class AuthInfo extends RealmObject {
 
+    @PrimaryKey
+    public int id = 1;
     public String token;
     public String bearer;
     public String lastLogin;
@@ -12,6 +15,9 @@ public class AuthInfo extends RealmObject {
         this.token = token;
         this.bearer = bearer;
         this.lastLogin = lastLogin;
+    }
+
+    public AuthInfo() {
     }
 
     public String getToken() {

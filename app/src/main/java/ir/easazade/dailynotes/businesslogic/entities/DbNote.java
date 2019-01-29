@@ -1,25 +1,30 @@
 package ir.easazade.dailynotes.businesslogic.entities;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class DbNote extends RealmObject {
 
+    @PrimaryKey
     public String uuid;
     public String userId;
     public String title;
     public String content;
-    public Timestamp createdAt;
+    public Date createdAt;
     public int color;
 
-    public DbNote(String uuid, String userId, String title, String content, Timestamp createdAt, int color) {
+    public DbNote(String uuid, String userId, String title, String content, Date createdAt, int color) {
         this.uuid = uuid;
         this.userId = userId;
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
         this.color = color;
+    }
+
+    public DbNote() {
     }
 
     public String getUuid() {
@@ -54,11 +59,11 @@ public class DbNote extends RealmObject {
         this.content = content;
     }
 
-    public Timestamp getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 

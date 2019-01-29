@@ -2,27 +2,32 @@ package ir.easazade.dailynotes.businesslogic.entities;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class DbUser extends RealmObject {
 
-    public String id;
+    @PrimaryKey
+    public String uuid;
     public String username;
     public String email;
     public RealmList<DbNote> notes;
 
-    public DbUser(String id, String username, String email, RealmList<DbNote> notes) {
-        this.id = id;
+    public DbUser(String uuid, String username, String email, RealmList<DbNote> notes) {
+        this.uuid = uuid;
         this.username = username;
         this.email = email;
         this.notes = notes;
     }
 
-    public String getId() {
-        return id;
+    public DbUser() {
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getId() {
+        return uuid;
+    }
+
+    public void setId(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getUsername() {
