@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import ir.easazade.dailynotes.App
 import ir.easazade.dailynotes.utils.AppContextWrapper
 
+const val APP_COMPONENT = "app_component"
+
 abstract class BaseActivity : AppCompatActivity() {
 
     fun hideSoftKeyboard() {
@@ -20,6 +22,12 @@ abstract class BaseActivity : AppCompatActivity() {
         } catch (e: Exception) {
 //            Crashlytics.logException(e)
         }
+    }
+
+    override fun getSystemService(name: String): Any {
+        if (name == APP_COMPONENT)
+            return App.component()
+        return super.getSystemService(name)
     }
 
     override fun attachBaseContext(newBase: Context?) {

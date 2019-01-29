@@ -23,6 +23,7 @@ class DbUtils {
             dbNote.title,
             dbNote.content,
             Timestamp(dbNote.createdAt.time),
+            Timestamp(dbNote.updatedAt.time),
             dbNote.color
         )
 
@@ -32,6 +33,7 @@ class DbUtils {
             note.title,
             note.content,
             note.createdAt,
+            note.updatedAt,
             note.color
         )
 

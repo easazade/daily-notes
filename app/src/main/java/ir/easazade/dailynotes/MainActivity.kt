@@ -2,7 +2,9 @@ package ir.easazade.dailynotes
 
 import android.os.Bundle
 import ir.easazade.dailynotes.di.AppComponent
+import ir.easazade.dailynotes.di.ArchitectureModule
 import ir.easazade.dailynotes.di.DatabaseModule
+import ir.easazade.dailynotes.di.ServerModule
 import ir.easazade.dailynotes.sdk.BaseActivity
 
 class MainActivity : BaseActivity() {
@@ -13,7 +15,7 @@ class MainActivity : BaseActivity() {
             AppComponent(
                 DatabaseModule(),
                 ServerModule(),
-
+                ArchitectureModule()
             )
         )
         super.onCreate(savedInstanceState)

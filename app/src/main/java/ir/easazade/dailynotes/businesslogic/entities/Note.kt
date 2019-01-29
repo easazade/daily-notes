@@ -8,6 +8,7 @@ data class Note(
     val title: String,
     val content: String,
     val createdAt: Timestamp,
+    val updatedAt: Timestamp,
     val color: Int
 
 )
