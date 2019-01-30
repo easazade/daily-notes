@@ -1,10 +1,9 @@
 package ir.easazade.dailynotes.viewmodels.tasks.notetasks
 
 import com.jakewharton.rxrelay2.PublishRelay
-import ir.easazade.dailynotes.businesslogic.entities.Note
 
 class DeleteNoteTask {
   val progress = PublishRelay.create<Boolean>()
-  val success = PublishRelay.create<Note>()
+  val success = PublishRelay.create<Boolean>()
   val failed = PublishRelay.create<Boolean>()
 }

@@ -5,7 +5,7 @@ import ir.easazade.dailynotes.businesslogic.entities.User
 
 typealias NState = NoteRepositoryState
 
-class NoteRepositoryState(
+class NoteRepositoryState private constructor(
   val inProgress: Boolean = false,
   val hasError: Boolean = false,
   val hasNoConnection: Boolean = false,

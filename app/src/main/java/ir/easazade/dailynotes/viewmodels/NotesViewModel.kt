@@ -19,9 +19,9 @@ class NotesViewModel(
 
   private val disposables = CompositeDisposable()
 
-  private val createNoteTask = CreateNoteTask()
-  private val editNoteTask = EditNoteTask()
-  private val deleteNoteTask = DeleteNoteTask()
+  val createNoteTask = CreateNoteTask()
+  val editNoteTask = EditNoteTask()
+  val deleteNoteTask = DeleteNoteTask()
 
   fun createNote(note: Note) {
     disposables.add(notesRepo.createNote(note)
@@ -66,9 +66,7 @@ class NotesViewModel(
           when {
             state.inProgress -> deleteNoteTask.progress.accept(true)
             state.isFailure -> deleteNoteTask.failed.accept(true)
-            state.isSuccessful -> {
-              state.note?.let { deleteNoteTask.success.accept(it) }
-            }
+            state.isSuccessful -> deleteNoteTask.success.accept(true)
           }
         }
     )
