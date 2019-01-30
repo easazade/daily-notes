@@ -34,4 +34,21 @@ class NotesViewModelUnitTest {
 
   }
 
+  @Test
+  fun test_createNote_shouldCreateNote() {
+
+  }
+
+  @Test
+  fun test_editNote_shouldEditNote() {
+
+  }
+
+  @Test
+  fun test_deleteNote_shouldDeleteNote() {
+
+  }
+
+
+
 }
