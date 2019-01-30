@@ -1,4 +1,4 @@
-package ir.easazade.dailynotes.screens.login
+package ir.easazade.dailynotes.screens
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import ir.easazade.dailynotes.sdk.navigation.Arguments
 import ir.easazade.dailynotes.sdk.navigation.BaseFrag
 import ir.easazade.dailynotes.sdk.navigation.ViewState
 
-class LoginFrag : BaseFrag<LoginFrag.State, LoginFrag.Args>() {
+class NoteFrag : BaseFrag<NoteFrag.State, NoteFrag.Args>() {
 
   override fun getArgumentsAndSetProperties(args: Args) {}
 
@@ -17,7 +17,7 @@ class LoginFrag : BaseFrag<LoginFrag.State, LoginFrag.Args>() {
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? = inflater.inflate(R.layout.frag_login, container, false)
+  ): View? = inflater.inflate(R.layout.frag_note, container, false)
 
   override fun initializeViews() {}
 
@@ -32,8 +32,7 @@ class LoginFrag : BaseFrag<LoginFrag.State, LoginFrag.Args>() {
   }
 
   class Args : Arguments()
-  class State(args: Arguments) : ViewState(args) {
+  class State(args: Args) : ViewState(args) {
     override fun createUpdate(): ViewState = this
   }
-
 }

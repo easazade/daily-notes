@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+>
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      >
+  >
 
     <ImageView
         android:id="@+id/imageView"
@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
+    />
 
     <TextView
         android:id="@+id/textView"
@@ -32,7 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        />
+    />
 
     <TextView
         android:id="@+id/textView2"
@@ -41,26 +41,27 @@
         android:layout_marginStart="42dp"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/karla"
-        android:text="user name"
+        android:text="@string/email"
         android:textColor="@color/dark"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        />
+    />
 
     <EditText
-        android:id="@+id/mLoginUsername"
+        android:id="@+id/mLoginEmail"
         android:layout_width="0dp"
         android:layout_height="46dp"
         android:layout_marginEnd="42dp"
         android:layout_marginTop="8dp"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
+        android:inputType="textEmailAddress"
         android:background="@drawable/edittext_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        />
+    />
 
     <TextView
         android:id="@+id/textView3"
@@ -69,12 +70,12 @@
         android:layout_marginStart="42dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/karla"
-        android:text="password"
+        android:text="@string/password"
         android:textColor="@color/dark"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mLoginUsername"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/mLoginEmail"
+    />
 
     <EditText
         android:id="@+id/mLoginPassword"
@@ -83,12 +84,13 @@
         android:layout_marginEnd="42dp"
         android:layout_marginTop="8dp"
         android:paddingStart="15dp"
+        android:inputType="textPassword"
         android:paddingEnd="15dp"
         android:background="@drawable/edittext_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        />
+    />
 
     <TextView
         android:id="@+id/mLoginBtn"
@@ -98,13 +100,16 @@
         android:background="@color/colorAccent"
         android:fontFamily="@font/karla"
         android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
         android:text="@string/login"
         android:textColor="@color/white"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="@+id/mLoginPassword"
         app:layout_constraintStart_toStartOf="@+id/mLoginPassword"
         app:layout_constraintTop_toBottomOf="@+id/mLoginPassword"
-        />
+    />
 
     <TextView
         android:id="@+id/mLoginForgotPass"
@@ -112,25 +117,27 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
         android:fontFamily="@font/karla"
+        android:padding="3dp"
         android:text="@string/i_forgot_pass"
         android:textColor="@color/link_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mLoginBtn"
-        />
+    />
 
     <TextView
         android:id="@+id/mLoginRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/karla"
+        android:padding="3dp"
         android:text="@string/create_account"
         android:textColor="@color/link_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mLoginForgotPass"
-        />
+    />
 
     <View
         android:layout_width="0dp"
@@ -139,6 +146,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/mLoginRegister"
-        />
+    />
   </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

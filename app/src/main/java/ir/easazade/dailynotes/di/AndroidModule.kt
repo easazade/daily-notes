@@ -1,7 +1,7 @@
 package ir.easazade.dailynotes.di
 
 import ir.easazade.dailynotes.R
-import ir.easazade.dailynotes.screens.main.HomeFrag
+import ir.easazade.dailynotes.screens.HomeFrag
 import ir.easazade.dailynotes.sdk.BaseActivity
 import ir.easazade.dailynotes.sdk.DataBindings
 import ir.easazade.dailynotes.sdk.navigation.Navigator

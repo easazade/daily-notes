@@ -31,7 +31,7 @@ class NotesViewModel(
           handleCommonTask(state)
           when {
             state.inProgress -> createNoteTask.progress.accept(true)
-            state.isFailure -> createNoteTask.failed.accept(true)
+            state.isFailure -> state.failureReason?.let { createNoteTask.failed.accept(it) }
             state.isSuccessful -> {
               state.note?.let { createNoteTask.success.accept(it) }
             }
@@ -48,7 +48,7 @@ class NotesViewModel(
           handleCommonTask(state)
           when {
             state.inProgress -> editNoteTask.progress.accept(true)
-            state.isFailure -> editNoteTask.failed.accept(true)
+            state.isFailure -> state.failureReason?.let { editNoteTask.failed.accept(it) }
             state.isSuccessful -> {
               state.note?.let { editNoteTask.success.accept(it) }
             }
@@ -65,7 +65,7 @@ class NotesViewModel(
           handleCommonTask(state)
           when {
             state.inProgress -> deleteNoteTask.progress.accept(true)
-            state.isFailure -> deleteNoteTask.failed.accept(true)
+            state.isFailure -> state.failureReason?.let { deleteNoteTask.failed.accept(it) }
             state.isSuccessful -> deleteNoteTask.success.accept(true)
           }
         }

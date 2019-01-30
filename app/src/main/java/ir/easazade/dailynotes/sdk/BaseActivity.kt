@@ -6,6 +6,8 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
 import ir.easazade.dailynotes.App
+import ir.easazade.dailynotes.R
+import ir.easazade.dailynotes.utils.AndroidUtils
 import ir.easazade.dailynotes.viewmodels.NotesViewModel
 import ir.easazade.dailynotes.viewmodels.UserViewModel
 
@@ -32,6 +34,26 @@ abstract class BaseActivity : AppCompatActivity() {
     } catch (e: Exception) {
 //            Crashlytics.logException(e)
     }
+  }
+
+  fun showSnackBarWithErrorMsg(errorMsg: String) {
+    AndroidUtils.showSnackBarMessage(this, errorMsg, R.id.mainActivity_root)
+  }
+
+  fun showNoInternetConnectionSnackBar() {
+    AndroidUtils.showSnackBarMessage(this, R.string.no_connection, R.id.mainActivity_root)
+  }
+
+  fun showDevelopingMessageSnackBar() {
+    AndroidUtils.showSnackBarMessage(
+        this@BaseActivity,
+        R.string.in_development,
+        R.id.mainActivity_root
+    )
+  }
+
+  fun showNetworkErrorMessageSnackBar() {
+    AndroidUtils.showSnackBarMessage(this, R.string.network_error, R.id.mainActivity_root)
   }
 
   override fun getSystemService(name: String): Any {

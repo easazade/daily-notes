@@ -1,4 +1,4 @@
-package ir.easazade.dailynotes.screens.main
+package ir.easazade.dailynotes.screens
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -26,7 +26,8 @@ class HomeFrag : BaseFrag<HomeFrag.State, HomeFrag.Args>() {
 
     }
 
-    override fun getCurrentState(): State = State(args)
+    override fun getCurrentState(): State = State(
+        args)
 
     override fun observeViewModels() {
 

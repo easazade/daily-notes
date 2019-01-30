@@ -7,6 +7,6 @@ class LoginTask {
 
   val progress = PublishRelay.create<Boolean>()
   val loggedIn = PublishRelay.create<User>()
-  val failed = PublishRelay.create<Boolean>()
+  val failed = PublishRelay.create<String>()
 
 }

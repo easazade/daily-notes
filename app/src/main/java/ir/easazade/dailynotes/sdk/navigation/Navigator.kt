@@ -1,9 +1,12 @@
 package ir.easazade.dailynotes.sdk.navigation
 
 import androidx.fragment.app.Fragment
-import ir.easazade.dailynotes.screens.login.LoginFrag
-import ir.easazade.dailynotes.screens.main.HomeFrag
+import ir.easazade.dailynotes.screens.LoginFrag
+import ir.easazade.dailynotes.screens.HomeFrag
+import ir.easazade.dailynotes.screens.NoteFrag
+import ir.easazade.dailynotes.screens.SignupFrag
 import ir.easazade.dailynotes.sdk.BaseActivity
+import kotlinx.android.synthetic.main.frag_main.view.mMainTransparentLogo
 
 class Navigator<HomeState : ViewState, HomeArg : Arguments> private constructor(
   private val activity: BaseActivity,
@@ -143,9 +146,13 @@ class Navigator<HomeState : ViewState, HomeArg : Arguments> private constructor(
             .go()
       } else {
         when (viewState) {
-          is LoginFrag.State -> destination(LoginFrag()).withState(viewState).go(
+          is LoginFrag.State -> destination(
+              LoginFrag()).withState(viewState).go(
               saveCurrentFragState
           )
+          is NoteFrag.State -> destination(NoteFrag()).withState(viewState).go(saveCurrentFragState)
+          is SignupFrag.State -> destination(SignupFrag()).withState(viewState).go(
+              saveCurrentFragState)
           else -> {
             activity.moveTaskToBack(true)
           }

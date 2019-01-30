@@ -6,5 +6,5 @@ import ir.easazade.dailynotes.businesslogic.entities.Note
 class EditNoteTask{
   val progress = PublishRelay.create<Boolean>()
   val success = PublishRelay.create<Note>()
-  val failed = PublishRelay.create<Boolean>()
+  val failed = PublishRelay.create<String>()
 }

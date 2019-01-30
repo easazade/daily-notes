@@ -13,6 +13,8 @@ class UserRepository(
   private val isLoggedIn: () -> Boolean,
   private val database: IAppDatabase
 ) : IUserRepository {
+
+
   override fun login(email: String, pass: String): Observable<UState> {
     return Observable.create { emitter ->
       doOnConnected(emitter) {
@@ -73,9 +75,9 @@ class UserRepository(
     emitter: ObservableEmitter<UState>,
     onConnectedAndLoggedIn: () -> Unit
   ) {
-    emitter.onNext(UState.inProgress())
     if (isConnected()) {
       if (isLoggedIn()) {
+        emitter.onNext(UState.inProgress())
         onConnectedAndLoggedIn()
       } else {
         emitter.onNext(UState.notLoggedIn())
@@ -89,8 +91,8 @@ class UserRepository(
     emitter: ObservableEmitter<UState>,
     onLoggedIn: () -> Unit
   ) {
-    emitter.onNext(UState.inProgress())
     if (isLoggedIn()) {
+      emitter.onNext(UState.inProgress())
       onLoggedIn()
     } else {
       emitter.onNext(UState.notLoggedIn())
@@ -101,8 +103,8 @@ class UserRepository(
     emitter: ObservableEmitter<UState>,
     onConnected: () -> Unit
   ) {
-    emitter.onNext(UState.inProgress())
     if (isConnected()) {
+      emitter.onNext(UState.inProgress())
       onConnected()
     } else {
       emitter.onNext(UState.noConnection())

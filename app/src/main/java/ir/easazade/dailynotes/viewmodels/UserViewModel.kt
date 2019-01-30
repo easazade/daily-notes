@@ -34,7 +34,7 @@ class UserViewModel(
           handleCommonTask(state)
           when {
             state.inProgress -> loginTask.progress.accept(true)
-            state.isFailure -> loginTask.failed.accept(true)
+            state.isFailure -> state.failureReason?.let { loginTask.failed.accept(it) }
             state.isSuccessful -> {
               state.user?.let { loginTask.loggedIn.accept(it) }
             }
@@ -51,7 +51,7 @@ class UserViewModel(
           handleCommonTask(state)
           when {
             state.inProgress -> signupTask.progress.accept(true)
-            state.isFailure -> signupTask.failed.accept(true)
+            state.isFailure -> state.failureReason?.let { signupTask.failed.accept(it) }
             state.isSuccessful -> {
               state.user?.let { signupTask.signedUp.accept(it) }
             }
@@ -68,7 +68,7 @@ class UserViewModel(
           handleCommonTask(state)
           when {
             state.inProgress -> syncTask.progress.accept(true)
-            state.isFailure -> syncTask.failed.accept(true)
+            state.isFailure -> state.failureReason?.let { syncTask.failed.accept(it) }
             state.isSuccessful -> {
               state.user?.let { syncTask.syncFinished.accept(it) }
             }

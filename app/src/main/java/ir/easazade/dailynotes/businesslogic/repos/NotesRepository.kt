@@ -60,9 +60,9 @@ class NotesRepository(
     emitter: ObservableEmitter<NState>,
     onConnectedAndLoggedIn: () -> Unit
   ) {
-    emitter.onNext(NState.inProgress())
     if (isConnected()) {
       if (isLoggedIn()) {
+        emitter.onNext(NState.inProgress())
         onConnectedAndLoggedIn()
       } else {
         emitter.onNext(NState.notLoggedIn())
@@ -76,8 +76,8 @@ class NotesRepository(
     emitter: ObservableEmitter<NState>,
     onLoggedIn: () -> Unit
   ) {
-    emitter.onNext(NState.inProgress())
     if (isLoggedIn()) {
+      emitter.onNext(NState.inProgress())
       onLoggedIn()
     } else {
       emitter.onNext(NState.notLoggedIn())
@@ -88,8 +88,8 @@ class NotesRepository(
     emitter: ObservableEmitter<NState>,
     onConnected: () -> Unit
   ) {
-    emitter.onNext(NState.inProgress())
     if (isConnected()) {
+      emitter.onNext(NState.inProgress())
       onConnected()
     } else {
       emitter.onNext(NState.noConnection())

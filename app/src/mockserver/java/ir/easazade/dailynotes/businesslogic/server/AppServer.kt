@@ -4,10 +4,12 @@ import io.reactivex.Observable
 import ir.easazade.dailynotes.businesslogic.database.AppDatabase
 import ir.easazade.dailynotes.businesslogic.database.DbUtils
 import ir.easazade.dailynotes.businesslogic.database.RealmProvider
+import ir.easazade.dailynotes.businesslogic.entities.AuthInfo
 import ir.easazade.dailynotes.businesslogic.entities.DbNote
 import ir.easazade.dailynotes.businesslogic.entities.Note
 import ir.easazade.dailynotes.businesslogic.entities.User
 import ir.easazade.dailynotes.businesslogic.states.ServerState
+import ir.easazade.dailynotes.utils.DateUtils.Companion.currentTime
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 
@@ -32,7 +34,7 @@ class AppServer(private val provider: RealmProvider) : AppDatabase(provider), IA
   override fun login(email: String, pass: String): Observable<ServerState> {
     getUser()?.let { user ->
       return if (user.email == email)
-        Observable.just(ServerState.success(user))
+        Observable.just(ServerState.auth(AuthInfo("token", "bearer", currentTime()), user))
             .delay(1000, TimeUnit.MILLISECONDS)
       else
         Observable.just(ServerState.failed(ServerState.WRONG_EMAIL_OR_PASSWORD))
