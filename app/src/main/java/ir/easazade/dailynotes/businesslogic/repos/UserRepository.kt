@@ -47,17 +47,16 @@ class UserRepository(
     }
   }
 
-  override fun sync(user: User): Observable<UState> {
+  override fun sync(): Observable<UState> {
     return Observable.create { emitter ->
-      doOnConnected(emitter) {
-        server.sync(user)
-            .subscribe { state ->
-              when {
-                state.hasError -> emitter.onNext(UState.error(state.errorMsg!!))
-                state.isFailed -> emitter.onNext(UState.failed(state.failureReason!!))
-                state.isSuccessful -> emitter.onNext(UState.success(state.user!!))
-              }
-            }
+      doOnConnectedAndLoggedIn(emitter) {
+        server.sync(database.getUser()!!).subscribe { state ->
+          when {
+            state.hasError -> emitter.onNext(UState.error(state.errorMsg!!))
+            state.isFailed -> emitter.onNext(UState.failed(state.failureReason!!))
+            state.isSuccessful -> emitter.onNext(UState.success(state.user!!))
+          }
+        }
       }
     }
   }

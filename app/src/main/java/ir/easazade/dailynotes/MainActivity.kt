@@ -2,6 +2,7 @@ package ir.easazade.dailynotes
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProviders
+import io.reactivex.android.schedulers.AndroidSchedulers
 import ir.easazade.dailynotes.di.AndroidModule
 import ir.easazade.dailynotes.di.AppComponent
 import ir.easazade.dailynotes.di.DatabaseModule
@@ -11,6 +12,7 @@ import ir.easazade.dailynotes.screens.main.HomeFrag
 import ir.easazade.dailynotes.sdk.BaseActivity
 import ir.easazade.dailynotes.viewmodels.NotesViewModel
 import ir.easazade.dailynotes.viewmodels.UserViewModel
+import ir.easazade.dailynotes.viewmodels.tasks.CommonTask
 
 class MainActivity : BaseActivity() {
 
@@ -52,5 +54,13 @@ class MainActivity : BaseActivity() {
           .go()
     }
 
+    //observing CommonTask
+    subscriptions.add(
+        CommonTask.notLoggedIn.observeOn(AndroidSchedulers.mainThread()).subscribe { notLoggedIn ->
+          App.component().navigator().destination(LoginFrag()).withArguments(LoginFrag.Args()).go()
+        }
+    )
+
   }
+
 }

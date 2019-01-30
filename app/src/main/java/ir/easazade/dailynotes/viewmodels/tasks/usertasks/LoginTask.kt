@@ -1,4 +1,4 @@
-package ir.easazade.dailynotes.viewmodels.tasks
+package ir.easazade.dailynotes.viewmodels.tasks.usertasks
 
 import com.jakewharton.rxrelay2.PublishRelay
 import ir.easazade.dailynotes.businesslogic.entities.User

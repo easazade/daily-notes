@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import io.reactivex.disposables.CompositeDisposable
 import ir.easazade.dailynotes.App
 import ir.easazade.dailynotes.viewmodels.NotesViewModel
 import ir.easazade.dailynotes.viewmodels.UserViewModel
@@ -11,6 +12,8 @@ import ir.easazade.dailynotes.viewmodels.UserViewModel
 const val APP_COMPONENT = "app_component"
 
 abstract class BaseActivity : AppCompatActivity() {
+
+  val subscriptions = CompositeDisposable()
 
   var userViewModel: UserViewModel? = null
   var notesViewModel: NotesViewModel? = null
