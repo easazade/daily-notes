@@ -70,6 +70,8 @@ class UserRepository(
 
   override fun isLoggedIn(): Boolean = database.isLoggedIn()
 
+  override fun getUser(): User? = database.getUser()
+
   //####################################### helper methods ##################################
   private fun doOnConnectedAndLoggedIn(
     emitter: ObservableEmitter<UState>,

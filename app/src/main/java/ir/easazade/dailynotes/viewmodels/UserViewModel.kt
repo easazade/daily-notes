@@ -3,6 +3,7 @@ package ir.easazade.dailynotes.viewmodels
 import androidx.lifecycle.ViewModel
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
+import ir.easazade.dailynotes.businesslogic.entities.User
 import ir.easazade.dailynotes.businesslogic.repos.IUserRepository
 import ir.easazade.dailynotes.businesslogic.states.UState
 import ir.easazade.dailynotes.viewmodels.tasks.CommonTask
@@ -25,6 +26,8 @@ class UserViewModel(
   val syncTask = SyncTask()
 
   fun isLoggedIn(): Boolean = userRepo.isLoggedIn()
+
+  fun getUser(): User? = userRepo.getUser()
 
   fun login(email: String, pass: String) {
     loginDisposables.add(userRepo.login(email, pass)
