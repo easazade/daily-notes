@@ -9,6 +9,7 @@ import ir.easazade.dailynotes.di.ServerModule
 import ir.easazade.dailynotes.screens.login.LoginFrag
 import ir.easazade.dailynotes.screens.main.HomeFrag
 import ir.easazade.dailynotes.sdk.BaseActivity
+import ir.easazade.dailynotes.viewmodels.NotesViewModel
 import ir.easazade.dailynotes.viewmodels.UserViewModel
 
 class MainActivity : BaseActivity() {
@@ -19,6 +20,7 @@ class MainActivity : BaseActivity() {
       App.get(this)
           .setAppComponent(
               AppComponent(
+                  App.get(this),
                   DatabaseModule(),
                   ServerModule(),
                   AndroidModule(this)
@@ -27,8 +29,12 @@ class MainActivity : BaseActivity() {
     }
     //setting viewModels
     if (userViewModel == null)
-      userViewModel = ViewModelProviders.of(this, App.component().viewModelFactory(this))
+      userViewModel = ViewModelProviders.of(this, App.component().viewModelFactory())
           .get(UserViewModel::class.java)
+    if (notesViewModel == null)
+      notesViewModel = ViewModelProviders.of(this, App.component().viewModelFactory())
+          .get(NotesViewModel::class.java)
+
     //startig ui
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)

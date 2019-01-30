@@ -2,13 +2,14 @@ package ir.easazade.dailynotes.businesslogic.server
 
 import io.reactivex.Observable
 import ir.easazade.dailynotes.businesslogic.entities.Note
+import ir.easazade.dailynotes.businesslogic.entities.User
 import ir.easazade.dailynotes.businesslogic.states.ServerState
 
 interface IAppServer {
     //user requests
     fun signup(email: String, username: String, pass: String, passRepeat: String): Observable<ServerState>
 
-    fun sync(): Observable<ServerState>
+    fun sync(user:User): Observable<ServerState>
 
     fun login(email: String, pass: String): Observable<ServerState>
 

@@ -33,6 +33,7 @@ class FakeDataIntegrated {
                         "email$i@gmail.com",
                         "some content",
                         DateUtils.currentTime(),
+                        DateUtils.currentTime(),
                         0xff54cd.toInt()
                     )
                 )

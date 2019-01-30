@@ -7,14 +7,16 @@ import ir.easazade.dailynotes.businesslogic.entities.User
 
 interface IAppDatabase {
 
-    fun getUser(): User?
-    fun saveUser(user: User)
-    fun saveAuthInfo(authInfo: AuthInfo)
-    fun getAuthInfo(): AuthInfo?
-    fun saveAboutUs(aboutUs: AboutUs)
-    fun getAboutUs(): AboutUs?
-    fun getUserNote(id: String): Note?
-    fun saveUserNote(note: Note)
-    fun deleteUserNote(id: String)
+  fun getUser(): User?
+  fun saveUser(user: User)
+  fun deleteUser()
+  fun isLoggedIn(): Boolean
+  fun saveAuthInfo(authInfo: AuthInfo)
+  fun getAuthInfo(): AuthInfo?
+  fun saveAboutUs(aboutUs: AboutUs)
+  fun getAboutUs(): AboutUs?
+  fun getUserNote(id: String): Note?
+  fun saveUserNote(note: Note)
+  fun deleteUserNote(id: String)
 
 }
