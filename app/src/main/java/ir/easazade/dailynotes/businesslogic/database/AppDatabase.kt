@@ -64,7 +64,7 @@ open class AppDatabase(private val provider: RealmProvider) : IAppDatabase {
   override fun saveUserNote(note: Note) {
     getUser()?.let { user ->
       transaction { realm ->
-        ListUtils.addAllIfNotExists(user.notes,
+        ListUtils.addOrUpdateAll(user.notes,
             listOf(note)) { note1, note2 -> note1.uuid == note2.uuid }
         realm.copyToRealmOrUpdate(DbUtils.userToDbUser(user))
       }

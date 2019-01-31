@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import ir.easazade.dailynotes.App
 import ir.easazade.dailynotes.R
 import ir.easazade.dailynotes.businesslogic.entities.Note
+import ir.easazade.dailynotes.businesslogic.entities.User
 import ir.easazade.dailynotes.screens.adapters.HomeListAdapter
 import ir.easazade.dailynotes.screens.listeners.AppBarStateChangeListener
 import ir.easazade.dailynotes.screens.viewobjects.AddNoteDialog
@@ -19,25 +20,17 @@ import kotlinx.android.synthetic.main.frag_main.mMainAddBtn
 import kotlinx.android.synthetic.main.frag_main.mMainAppBar
 import kotlinx.android.synthetic.main.frag_main.mMainEmail
 import kotlinx.android.synthetic.main.frag_main.mMainList
+import kotlinx.android.synthetic.main.frag_main.mMainNoNotesMsg
 import kotlinx.android.synthetic.main.frag_main.mMainNotesCount
+import kotlinx.android.synthetic.main.frag_main.mMainTransparentLogo
 import kotlinx.android.synthetic.main.frag_main.mMainUserName
+import kotlinx.android.synthetic.main.view_add_note.mAddNoteContent
 
 class HomeFrag : BaseFrag<HomeFrag.State, HomeFrag.Args>() {
 
   private var mAdapter: HomeListAdapter? = null
 
   override fun getArgumentsAndSetProperties(args: Args) {}
-
-  val roller = Roller(
-      R.color.note_color_1,
-      R.color.note_color_2,
-      R.color.note_color_3,
-      R.color.note_color_4,
-      R.color.note_color_5,
-      R.color.note_color_6,
-      R.color.note_color_7,
-      R.color.note_color_8
-  )
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -74,11 +67,9 @@ class HomeFrag : BaseFrag<HomeFrag.State, HomeFrag.Args>() {
           mMainEmail.text = user.email
           mMainUserName.text = user.username
           mMainNotesCount.text = "notes : ${user.notes.size}"
-          mAdapter = HomeListAdapter(mMainList, user.notes) { note ->
-            App.component()
-                .navigator()
-                .destination(NoteFrag())
-                .withArguments(NoteFrag.Args(note))
+          calculateNoNoteMsgVisibility(user)
+          mAdapter = HomeListAdapter(mMainList, user.notes.asReversed()) { note ->
+            App.component().navigator().destination(NoteFrag()).withArguments(NoteFrag.Args(note))
                 .go()
           }
           mMainList.layoutManager = GridLayoutManager(mActivity, 2)
@@ -96,9 +87,12 @@ class HomeFrag : BaseFrag<HomeFrag.State, HomeFrag.Args>() {
           mMainEmail.text = user.email
           mMainUserName.text = user.username
           mMainNotesCount.text = "notes : ${user.notes.size}"
-          mAdapter = HomeListAdapter(mMainList, stateHolder?.notes ?: user.notes) { note ->
-            App.component().navigator().destination(NoteFrag()).withArguments(NoteFrag.Args(note)).go()
-          }
+          calculateNoNoteMsgVisibility(user)
+          mAdapter =
+              HomeListAdapter(mMainList, stateHolder?.notes ?: user.notes.asReversed()) { note ->
+                App.component().navigator().destination(NoteFrag())
+                    .withArguments(NoteFrag.Args(note)).go()
+              }
           mMainList.layoutManager = GridLayoutManager(mActivity, 2)
           mMainList.adapter = mAdapter
         }
@@ -110,14 +104,33 @@ class HomeFrag : BaseFrag<HomeFrag.State, HomeFrag.Args>() {
     fragSubscriptions.addAll(
         mActivity.notesVm().deleteNoteTask.success.observeOn(ui).subscribe {
           mAdapter?.deleteNote(it)
+          updateNoteCount()
         },
         mActivity.notesVm().createNoteTask.success.observeOn(ui).subscribe {
           mAdapter?.addNote(it)
+          updateNoteCount()
         },
         mActivity.notesVm().editNoteTask.success.observeOn(ui).subscribe {
           mAdapter?.editNote(it)
         }
     )
+  }
+
+  private fun updateNoteCount() {
+    mActivity.userVm().getUser()?.let { user ->
+      mMainNotesCount.text = "notes : ${user.notes.size}"
+      calculateNoNoteMsgVisibility(user)
+    }
+  }
+
+  private fun calculateNoNoteMsgVisibility(user: User) {
+    if (user.notes.size < 1) {
+      mMainTransparentLogo.visibility = View.VISIBLE
+      mMainNoNotesMsg.visibility = View.VISIBLE
+    } else {
+      mMainTransparentLogo.visibility = View.GONE
+      mMainNoNotesMsg.visibility = View.GONE
+    }
   }
 
   class Args : Arguments()

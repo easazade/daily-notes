@@ -146,4 +146,7 @@ dependencies {
 
   //timber
   implementation "com.jakewharton.timber:timber:4.7.1"
+  //progressbar
+  implementation 'com.github.ybq:Android-SpinKit:1.2.0'
+
 }

@@ -56,7 +56,7 @@ class AppComponent(
     return if (notesRepo != null)
       notesRepo!!
     else {
-      notesRepo = NotesRepository(serverModule.server(), {
+      notesRepo = NotesRepository(database(),serverModule.server(), {
         val connectivityManager =
             app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo.isConnected

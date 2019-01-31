@@ -3,12 +3,13 @@ package ir.easazade.dailynotes
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProviders
 import io.reactivex.android.schedulers.AndroidSchedulers
+import ir.easazade.dailynotes.businesslogic.ColorRoller
 import ir.easazade.dailynotes.di.AndroidModule
 import ir.easazade.dailynotes.di.AppComponent
 import ir.easazade.dailynotes.di.DatabaseModule
 import ir.easazade.dailynotes.di.ServerModule
-import ir.easazade.dailynotes.screens.LoginFrag
 import ir.easazade.dailynotes.screens.HomeFrag
+import ir.easazade.dailynotes.screens.LoginFrag
 import ir.easazade.dailynotes.screens.viewobjects.AddNoteDialog
 import ir.easazade.dailynotes.sdk.BaseActivity
 import ir.easazade.dailynotes.viewmodels.NotesViewModel
@@ -29,6 +30,10 @@ class MainActivity : BaseActivity() {
                   AndroidModule(this)
               )
           )
+    }
+    //setting ColorRoller
+    App.component().database().getUser()?.let { user ->
+      ColorRoller.set(user.notes.last())
     }
     //setting viewModels
     if (userViewModel == null)
@@ -71,7 +76,8 @@ class MainActivity : BaseActivity() {
   }
 
   override fun onBackPressed() {
-    if (findViewById<AddNoteDialog>(R.id.mActivityAddNoteDialog).mState == AddNoteDialog.State.VISIBLE) {
+    if (findViewById<AddNoteDialog>(
+            R.id.mActivityAddNoteDialog).mState == AddNoteDialog.State.VISIBLE) {
       findViewById<AddNoteDialog>(R.id.mActivityAddNoteDialog).hide()
     } else
       App.component().navigator().back()

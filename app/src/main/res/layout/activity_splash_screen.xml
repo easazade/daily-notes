@@ -1,4 +1,5 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,36 +7,48 @@
     android:background="@color/colorAccent"
     tools:context=".SplashScreen">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
-    <ImageView
-        android:id="@+id/mSplashLogo"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:keepScreenOn="true"
-        android:src="@drawable/logo_splash_screen"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+  <!-- The primary full-screen view. This can be replaced with whatever view
+       is needed to present your content, e.g. VideoView, SurfaceView,
+       TextureView, etc. -->
+  <ImageView
+      android:id="@+id/mSplashLogo"
+      android:layout_width="70dp"
+      android:layout_height="70dp"
+      android:layout_centerInParent="true"
+      android:gravity="center"
+      android:visibility="invisible"
+      android:keepScreenOn="true"
+      android:src="@drawable/logo_splash_screen"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:id="@+id/mSplashVersion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="204dp"
-        android:gravity="center"
-        android:fontFamily="@font/karla"
-        android:text="@string/version"
-        android:textColor="@color/grey_very_light"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/mSplashLogo"
-        app:layout_constraintStart_toStartOf="@+id/mSplashLogo"
-        app:layout_constraintTop_toBottomOf="@+id/mSplashLogo" />
+  <com.github.ybq.android.spinkit.SpinKitView
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      android:id="@+id/mSplashSpinkit"
+      style="@style/SpinKitView.Small.ThreeBounce"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      app:SpinKit_Color="@color/white"
+      app:layout_constraintTop_toBottomOf="@+id/mSplashLogo"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"/>
+
+  <TextView
+      android:id="@+id/mSplashVersion"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="204dp"
+      android:gravity="center"
+      android:fontFamily="@font/karla"
+      android:text="@string/version"
+      android:textColor="@color/grey_very_light"
+      android:visibility="invisible"
+      app:layout_constraintEnd_toEndOf="@+id/mSplashLogo"
+      app:layout_constraintStart_toStartOf="@+id/mSplashLogo"
+      app:layout_constraintTop_toBottomOf="@+id/mSplashLogo"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
