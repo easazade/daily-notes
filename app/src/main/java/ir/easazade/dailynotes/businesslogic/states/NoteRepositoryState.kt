@@ -14,6 +14,7 @@ class NoteRepositoryState private constructor(
   val isFailure: Boolean = false,
   val note: Note? = null,
   val error: Throwable? = null,
+  val deletedNotId: String? = null,
   val failureReason: String? = null
 ) {
 
@@ -45,7 +46,7 @@ class NoteRepositoryState private constructor(
     fun error(error: Throwable) = NState(hasError = true, error = error)
     fun noConnection() = NState(hasNoConnection = true)
     fun success(note: Note) = NState(isSuccessful = true, note = note)
-    fun deleted() = NState(isSuccessful = true)
+    fun deleted(deletedNotId: String) = NState(deletedNotId = deletedNotId, isSuccessful = true)
     fun failed(reason: String) = NState(isFailure = true, failureReason = reason)
 
   }

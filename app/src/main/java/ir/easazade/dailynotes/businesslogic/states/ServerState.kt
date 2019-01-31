@@ -15,13 +15,26 @@ class ServerState private constructor(
   var errorMsg: Throwable? = null,
   var user: User? = null,
   var note: Note? = null,
+  var deletedNotId: String? = null,
   var authInfo: AuthInfo? = null
 ) {
 
   init {
-    user?.let { App.component().database().saveUser(it) }
-    user?.let { App.component().dataBindings().updateUser(it) }
-    note?.let { App.component().dataBindings().updateNote(it) }
+    user?.let {
+      App.component()
+          .database()
+          .saveUser(it)
+    }
+    user?.let {
+      App.component()
+          .dataBindings()
+          .updateUser(it)
+    }
+    note?.let {
+      App.component()
+          .dataBindings()
+          .updateNote(it)
+    }
   }
 
   companion object {
@@ -36,17 +49,22 @@ class ServerState private constructor(
 
     fun error(msg: Throwable): ServerState = ServerState(errorMsg = msg, hasError = true)
 
-    fun auth(authInfo: AuthInfo, user: User): ServerState =
-        ServerState(authInfo = authInfo, user = user, isSuccessful = true)
+    fun auth(
+      authInfo: AuthInfo,
+      user: User
+    ) =
+      ServerState(authInfo = authInfo, user = user, isSuccessful = true)
 
-    fun failed(reason: String): ServerState =
-        ServerState(failureReason = reason, isFailed = true)
+    fun failed(reason: String) =
+      ServerState(failureReason = reason, isFailed = true)
 
-    fun success(note: Note): ServerState = ServerState(isSuccessful = true, note = note)
+    fun success(note: Note) = ServerState(isSuccessful = true, note = note)
 
-    fun success(): ServerState = ServerState(isSuccessful = true)
+    fun success() = ServerState(isSuccessful = true)
 
-    fun success(user: User): ServerState = ServerState(user = user, isSuccessful = true)
+    fun success(user: User) = ServerState(user = user, isSuccessful = true)
+
+    fun success(deletedNotId: String) = ServerState(deletedNotId = deletedNotId, isSuccessful = true)
 
   }
 }

@@ -23,15 +23,20 @@ class AppServer(private val provider: RealmProvider) : AppDatabase(provider), IA
   ): Observable<ServerState> {
     val user = User(UUID.randomUUID().toString(), username, email, mutableListOf())
     saveUser(user)
-    return Observable.just(ServerState.success(user)).delay(2000, TimeUnit.MILLISECONDS)
+    return Observable.just(ServerState.success(user))
+        .delay(2000, TimeUnit.MILLISECONDS)
   }
 
   override fun sync(user: User): Observable<ServerState> {
     saveUser(user)
-    return Observable.just(ServerState.success(getUser()!!)).delay(2000, TimeUnit.MILLISECONDS)
+    return Observable.just(ServerState.success(getUser()!!))
+        .delay(2000, TimeUnit.MILLISECONDS)
   }
 
-  override fun login(email: String, pass: String): Observable<ServerState> {
+  override fun login(
+    email: String,
+    pass: String
+  ): Observable<ServerState> {
     getUser()?.let { user ->
       return if (user.email == email)
         Observable.just(ServerState.auth(AuthInfo("token", "bearer", currentTime()), user))
@@ -45,7 +50,7 @@ class AppServer(private val provider: RealmProvider) : AppDatabase(provider), IA
 
   override fun createNote(note: Note): Observable<ServerState> {
     saveUserNote(note)
-    return Observable.just(ServerState.success(getUser()!!))
+    return Observable.just(ServerState.success(note))
         .delay(1000, TimeUnit.MILLISECONDS)
   }
 
@@ -69,6 +74,6 @@ class AppServer(private val provider: RealmProvider) : AppDatabase(provider), IA
 
   override fun deleteNote(noteId: String): Observable<ServerState> {
     deleteUserNote(noteId)
-    return Observable.just(ServerState.success(getUser()!!))
+    return Observable.just(ServerState.success(noteId))
   }
 }

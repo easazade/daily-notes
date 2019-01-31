@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed"
+        app:layout_scrollFlags="scroll|enterAlways"
         app:statusBarScrim="?attr/colorPrimary"
         >
 
@@ -39,11 +39,11 @@
             android:paddingEnd="10sp"
             android:paddingStart="10sp"
             android:paddingTop="3dp"
-            tools:text="@sample/usernames"
             android:textColor="@color/dark"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            tools:text="@sample/usernames"
             />
 
         <TextView
@@ -58,11 +58,11 @@
             android:paddingEnd="10sp"
             android:paddingStart="10sp"
             android:paddingTop="3dp"
-            tools:text="@sample/emails"
             android:textColor="@color/dark"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/mMainUserName"
+            tools:text="@sample/emails"
             />
 
         <TextView
@@ -77,11 +77,11 @@
             android:paddingEnd="10sp"
             android:paddingStart="10sp"
             android:paddingTop="3dp"
-            tools:text="@sample/notescounts"
             android:textColor="@color/dark"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/mMainEmail"
+            tools:text="@sample/notescounts"
             />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
@@ -98,11 +98,12 @@
       />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/mMainAddBtn"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_margin="12dp"
       android:scaleType="centerInside"
-      android:src="@drawable/ic_fab_add"
+      android:src="@drawable/ic_add_mini"
       app:backgroundTint="@color/secondAccent"
       app:fabSize="normal"
       app:layout_anchor="@+id/mMainList"
@@ -131,5 +132,6 @@
       android:src="@drawable/logo_transparent"
       android:visibility="gone"
       />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -11,33 +11,40 @@ class NotesRepository(
   private val isConnected: () -> Boolean,
   private val isLoggedIn: () -> Boolean
 ) : INotesRepository {
+
+
   override fun createNote(note: Note): Observable<NState> {
     return Observable.create { emitter ->
       doOnLoggedIn(emitter) {
-        server.createNote(note).subscribe { state ->
-          when {
-            state.hasError -> emitter.onNext(NState.error(state.errorMsg!!))
-            state.isFailed -> emitter.onNext(NState.failed(state.failureReason!!))
-            state.isSuccessful -> emitter.onNext(NState.success(state.note!!))
-          }
-        }
+        server.createNote(note)
+            .subscribe { state ->
+              when {
+                state.hasError -> emitter.onNext(NState.error(state.errorMsg!!))
+                state.isFailed -> emitter.onNext(NState.failed(state.failureReason!!))
+                state.isSuccessful -> emitter.onNext(NState.success(state.note!!))
+              }
+            }
       }
     }
 
   }
 
   override fun editNote(
-    noteId: String, title: String?, content: String?, color: String?
+    noteId: String,
+    title: String?,
+    content: String?,
+    color: String?
   ): Observable<NState> {
     return Observable.create { emitter ->
       doOnLoggedIn(emitter) {
-        server.editNote(noteId, title, content, color).subscribe { state ->
-          when {
-            state.hasError -> emitter.onNext(NState.error(state.errorMsg!!))
-            state.isFailed -> emitter.onNext(NState.failed(state.failureReason!!))
-            state.isSuccessful -> emitter.onNext(NState.success(state.note!!))
-          }
-        }
+        server.editNote(noteId, title, content, color)
+            .subscribe { state ->
+              when {
+                state.hasError -> emitter.onNext(NState.error(state.errorMsg!!))
+                state.isFailed -> emitter.onNext(NState.failed(state.failureReason!!))
+                state.isSuccessful -> emitter.onNext(NState.success(state.note!!))
+              }
+            }
       }
     }
   }
@@ -45,13 +52,14 @@ class NotesRepository(
   override fun deleteNote(noteId: String): Observable<NState> {
     return Observable.create { emitter ->
       doOnLoggedIn(emitter) {
-        server.deleteNote(noteId).subscribe { state ->
-          when {
-            state.hasError -> emitter.onNext(NState.error(state.errorMsg!!))
-            state.isFailed -> emitter.onNext(NState.failed(state.failureReason!!))
-            state.isSuccessful -> emitter.onNext(NState.deleted())
-          }
-        }
+        server.deleteNote(noteId)
+            .subscribe { state ->
+              when {
+                state.hasError -> emitter.onNext(NState.error(state.errorMsg!!))
+                state.isFailed -> emitter.onNext(NState.failed(state.failureReason!!))
+                state.isSuccessful -> emitter.onNext(NState.deleted(state.deletedNotId!!))
+              }
+            }
       }
     }
   }

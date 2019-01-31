@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     >
 
   <ImageView
@@ -36,8 +37,8 @@
       android:fontFamily="@font/karla"
       android:hint="@string/enter_title"
       android:paddingEnd="15dp"
-      android:textSize="22sp"
       android:paddingStart="15dp"
+      android:textSize="22sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/dividerfirsst"
@@ -55,35 +56,41 @@
 
   <EditText
       android:id="@+id/mAddNoteContent"
-      android:gravity="top"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:layout_marginTop="8dp"
-      android:paddingStart="15dp"
-      android:paddingEnd="15dp"
-      android:hint="@string/write_your_note"
       android:background="@color/noColor"
+      android:gravity="top"
+      android:hint="@string/write_your_note"
       android:maxLength="2000"
+      android:paddingBottom="20dp"
+      android:paddingEnd="15dp"
+      android:paddingStart="15dp"
+      android:paddingTop="20dp"
       app:layout_constraintBottom_toTopOf="@+id/mAddNoteSaveBtn"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/dividersecond"
       />
-
-  <TextView
+  <FrameLayout
       android:id="@+id/mAddNoteSaveBtn"
-      android:layout_width="0dp"
-      android:layout_height="?attr/actionBarSize"
-      android:background="@color/colorAccent"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
       android:clickable="true"
       android:focusable="true"
-      android:text="@string/save"
-      android:gravity="center"
-      android:textSize="22sp"
-      android:textColor="@color/white"
+      android:foreground="?attr/selectableItemBackground"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      />
-
+      >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        />
+  </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
