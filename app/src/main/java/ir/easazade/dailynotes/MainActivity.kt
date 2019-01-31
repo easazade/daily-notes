@@ -1,8 +1,10 @@
 package ir.easazade.dailynotes
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import ir.easazade.dailynotes.businesslogic.ColorRoller
 import ir.easazade.dailynotes.di.AndroidModule
 import ir.easazade.dailynotes.di.AppComponent
@@ -17,6 +19,8 @@ import ir.easazade.dailynotes.viewmodels.UserViewModel
 import ir.easazade.dailynotes.viewmodels.tasks.CommonTask
 
 class MainActivity : BaseActivity() {
+
+  private val connectivityChangeSubscription = CompositeDisposable()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     //setting app component
@@ -70,9 +74,30 @@ class MainActivity : BaseActivity() {
         },
         CommonTask.notConnected.observeOn(AndroidSchedulers.mainThread()).subscribe {
           showNoInternetConnectionSnackBar()
+        },
+        userVm().syncTask.progress.observeOn(AndroidSchedulers.mainThread()).subscribe { started ->
+          if (started)
+            Toast.makeText(this, "updating changes on server", Toast.LENGTH_LONG).show()
         }
     )
+    //sync app with server
+    userVm().sync()
 
+  }
+
+  override fun onResume() {
+    connectivityChangeSubscription.add(
+        App.connected.observeOn(AndroidSchedulers.mainThread()).subscribe { isConnected ->
+          if (isConnected)
+            userVm().sync()
+        }
+    )
+    super.onResume()
+  }
+
+  override fun onPause() {
+    connectivityChangeSubscription.clear()
+    super.onPause()
   }
 
   override fun onBackPressed() {

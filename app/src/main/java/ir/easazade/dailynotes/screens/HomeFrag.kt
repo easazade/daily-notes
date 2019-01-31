@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.frag_main.mMainAddBtn
 import kotlinx.android.synthetic.main.frag_main.mMainAppBar
 import kotlinx.android.synthetic.main.frag_main.mMainEmail
 import kotlinx.android.synthetic.main.frag_main.mMainList
+import kotlinx.android.synthetic.main.frag_main.mMainLogoutBtn
 import kotlinx.android.synthetic.main.frag_main.mMainNoNotesMsg
 import kotlinx.android.synthetic.main.frag_main.mMainNotesCount
 import kotlinx.android.synthetic.main.frag_main.mMainTransparentLogo
@@ -55,6 +56,7 @@ class HomeFrag : BaseFrag<HomeFrag.State, HomeFrag.Args>() {
         setModeCreate()
       }.show()
     }
+    mMainLogoutBtn.setOnClickListener { mActivity.userVm().logout() }
   }
 
   override fun onLoadNewState(args: Args) {
