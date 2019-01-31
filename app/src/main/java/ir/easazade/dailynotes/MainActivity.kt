@@ -71,7 +71,7 @@ class MainActivity : BaseActivity() {
   }
 
   override fun onBackPressed() {
-    if (findViewById<AddNoteDialog>(R.id.mActivityAddNoteDialog).state == AddNoteDialog.State.VISIBLE) {
+    if (findViewById<AddNoteDialog>(R.id.mActivityAddNoteDialog).mState == AddNoteDialog.State.VISIBLE) {
       findViewById<AddNoteDialog>(R.id.mActivityAddNoteDialog).hide()
     } else
       App.component().navigator().back()

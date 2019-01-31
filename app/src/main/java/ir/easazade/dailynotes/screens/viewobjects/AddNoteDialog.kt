@@ -14,31 +14,31 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import ir.easazade.dailynotes.App
 import ir.easazade.dailynotes.MainActivity
 import ir.easazade.dailynotes.R
+import ir.easazade.dailynotes.businesslogic.ColorRoller
 import ir.easazade.dailynotes.businesslogic.entities.Note
 import ir.easazade.dailynotes.utils.DateUtils.Companion.currentTime
-import ir.easazade.dailynotes.utils.Roller
 import java.util.UUID
 
 class AddNoteDialog : FrameLayout {
-
-  val colorRoller = Roller(
-      "#95f69c",
-      "#8e569c",
-      "#cf669c",
-      "#caf69c"
-  )
 
   private val mSaveBtn: View
   private val mBackBtn: ImageView
   private val mTitle: EditText
   private val mContent: EditText
   private var mShouldBeShown = false
-  var state = State.HIDDEN
+  private var mNoteId: String? = null
+  var mState = State.HIDDEN
+  var mMode = Mode.CREATE
 
   enum class State {
     HIDDEN,
     VISIBLE,
     ANIMATING
+  }
+
+  enum class Mode {
+    EDIT,
+    CREATE
   }
 
   companion object {
@@ -55,11 +55,11 @@ class AddNoteDialog : FrameLayout {
     val stateValue = array.getInt(R.styleable.AddNoteDialog_anv_visibility_state, 0)
     when (stateValue) {
       0 -> {
-        state = State.HIDDEN
+        mState = State.HIDDEN
         translationX = destination
       }
       1 -> {
-        state = State.VISIBLE
+        mState = State.VISIBLE
         translationX = 0f
       }
     }
@@ -76,28 +76,45 @@ class AddNoteDialog : FrameLayout {
     //setting viewmodels
     mSaveBtn.setOnClickListener { _ ->
       if (context != null) {
-        (context as MainActivity).notesVm().createNote(Note(
-            UUID.randomUUID().toString(),
-            App.component().database().getUser()!!.uuid,
-            mTitle.text.toString(),
-            mContent.text.toString(),
-            currentTime(),
-            currentTime(),
-            colorRoller.roll()
-        ))
+        when (mMode) {
+          Mode.EDIT -> {
+            mNoteId?.let { id ->
+              (context as MainActivity).notesVm()
+                  .editNote(id, mTitle.text.toString(), mContent.text.toString(), null)
+            }
+          }
+          Mode.CREATE -> {
+            (context as MainActivity).notesVm().createNote(Note(
+                UUID.randomUUID().toString(),
+                App.component().database().getUser()!!.uuid,
+                mTitle.text.toString(),
+                mContent.text.toString(),
+                currentTime(),
+                currentTime(),
+                ColorRoller.roll()
+            ))
+          }
+        }
       }
       hide()
     }
   }
 
-  fun clearContent() {
+  private fun clearContent() {
     mTitle.setText("")
     mContent.setText("")
   }
 
-  fun setContent(title: String, content: String) {
+  fun setModeEdit(id: String, title: String, content: String) {
+    this.mMode = Mode.EDIT
+    this.mNoteId = id
     mTitle.setText(title)
     mContent.setText(content)
+  }
+
+  fun setModeCreate() {
+    mMode = Mode.CREATE
+    clearContent()
   }
 
   fun hide() {
@@ -112,7 +129,7 @@ class AddNoteDialog : FrameLayout {
 
   private fun doHideAction() {
     try {
-      if (state == State.VISIBLE && state != State.ANIMATING) {
+      if (mState == State.VISIBLE && mState != State.ANIMATING) {
         val anim = ObjectAnimator
             .ofFloat(this, "translationX", 0f, destination)
             .apply {
@@ -122,12 +139,13 @@ class AddNoteDialog : FrameLayout {
         set.play(anim)
         set.addListener(object : AnimatorListenerAdapter() {
           override fun onAnimationStart(animation: Animator?) {
-            state = State.ANIMATING
+            mState = State.ANIMATING
           }
 
           override fun onAnimationEnd(animation: Animator?) {
             translationX = destination
-            state = State.HIDDEN
+            mState = State.HIDDEN
+            clearContent()
             if (mShouldBeShown)
               doShowAction()
           }
@@ -141,7 +159,7 @@ class AddNoteDialog : FrameLayout {
 
   private fun doShowAction() {
     try {
-      if (state == State.HIDDEN && state != State.ANIMATING) {
+      if (mState == State.HIDDEN && mState != State.ANIMATING) {
         val wholeViewAnim = ObjectAnimator
             .ofFloat(this, "translationX", destination, 0f)
             .apply {
@@ -152,12 +170,12 @@ class AddNoteDialog : FrameLayout {
         set.play(wholeViewAnim)
         set.addListener(object : AnimatorListenerAdapter() {
           override fun onAnimationStart(animation: Animator?) {
-            state = State.ANIMATING
+            mState = State.ANIMATING
           }
 
           override fun onAnimationEnd(animation: Animator?) {
             translationX = 0f
-            state = State.VISIBLE
+            mState = State.VISIBLE
             if (!mShouldBeShown)
               doHideAction()
           }

@@ -41,7 +41,7 @@ open class AppDatabase(private val provider: RealmProvider) : IAppDatabase {
     transaction { it.where(DbUser::class.java).findAll().deleteAllFromRealm() }
   }
 
-  override fun isLoggedIn():Boolean = getUser() != null
+  override fun isLoggedIn(): Boolean = getUser() != null
 
   override fun saveAuthInfo(authInfo: AuthInfo) {
     transaction { it.copyToRealmOrUpdate(authInfo) }
@@ -74,6 +74,16 @@ open class AppDatabase(private val provider: RealmProvider) : IAppDatabase {
 
   override fun deleteUserNote(id: String) {
     transaction { it.where(DbNote::class.java).equalTo("uuid", id).findFirst()?.deleteFromRealm() }
+  }
+
+  override fun getUpdatedValues(oldNotes: MutableList<Note>): MutableList<Note> {
+    val newItems = mutableListOf<Note>()
+    oldNotes.forEach { item ->
+      provider.get().where(DbNote::class.java).equalTo("uuid", item.uuid).findFirst()?.let { newValue ->
+        newItems.add(DbUtils.dbNoteToNote(newValue))
+      }
+    }
+    return newItems
   }
 
   private fun transaction(session: (Realm) -> Unit) {

@@ -3,6 +3,7 @@ package ir.easazade.dailynotes.di
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import io.realm.RealmList
+import ir.easazade.dailynotes.businesslogic.ColorRoller
 import ir.easazade.dailynotes.businesslogic.database.RealmProvider
 import ir.easazade.dailynotes.businesslogic.entities.DbNote
 import ir.easazade.dailynotes.businesslogic.entities.DbUser
@@ -30,15 +31,15 @@ class ServerModule : IServerModule {
                   "and result of development process it does not mean "
               val note1 = DbNote(
                   UUID.randomUUID().toString(),
-                  userId, "title1", content, currentTime(), currentTime(), "#7BDB74"
+                  userId, "title1", content, currentTime(), currentTime(), ColorRoller.roll()
               )
               val note2 = DbNote(
                   UUID.randomUUID().toString(),
-                  userId, "title1", content, currentTime(), currentTime(), "#CC6D6D"
+                  userId, "title1", content, currentTime(), currentTime(), ColorRoller.roll()
               )
               val note3 = DbNote(
                   UUID.randomUUID().toString(),
-                  userId, "title1", content, currentTime(), currentTime(), "#5FB1CB"
+                  userId, "title1", content, currentTime(), currentTime(), ColorRoller.roll()
               )
               val user = DbUser(
                   userId,

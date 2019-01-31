@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+>
 
   <View
       android:id="@+id/mNoteToolbar"
@@ -15,7 +15,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       tools:background="@sample/notes_colors"
-      />
+  />
 
   <ImageView
       android:id="@+id/mNoteDelete"
@@ -26,7 +26,7 @@
       app:layout_constraintBottom_toBottomOf="@+id/mNoteToolbar"
       app:layout_constraintEnd_toEndOf="@+id/mNoteToolbar"
       app:layout_constraintTop_toTopOf="@+id/mNoteToolbar"
-      />
+  />
 
   <ImageView
       android:id="@+id/mNoteEdit"
@@ -37,7 +37,7 @@
       app:layout_constraintBottom_toBottomOf="@+id/mNoteToolbar"
       app:layout_constraintEnd_toStartOf="@+id/mNoteDelete"
       app:layout_constraintTop_toTopOf="@+id/mNoteToolbar"
-      />
+  />
 
   <TextView
       android:id="@+id/mNoteTitle"
@@ -48,15 +48,18 @@
       android:background="@drawable/tag_bg"
       android:fontFamily="@font/karla"
       android:paddingBottom="3dp"
+      android:maxLength="40"
       android:paddingEnd="10sp"
       android:paddingStart="10sp"
       android:paddingTop="3dp"
       android:textColor="@color/colorAccent"
       android:textSize="14sp"
+      android:maxLines="1"
+      app:layout_constraintHorizontal_bias="0"
       app:layout_constraintStart_toStartOf="@id/mNoteToolbar"
       app:layout_constraintTop_toTopOf="@id/mNoteToolbar"
       tools:text="@sample/title"
-      />
+      android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/mNoteEdit"/>
 
   <TextView
       android:id="@+id/mNoteDate"
@@ -64,19 +67,21 @@
       android:layout_height="wrap_content"
       android:layout_marginBottom="8dp"
       android:layout_marginStart="10dp"
-      android:layout_marginTop="8dp"
       android:background="@drawable/tag_bg"
       android:fontFamily="@font/karla"
       android:paddingBottom="3dp"
       android:paddingEnd="10sp"
+      android:maxLines="1"
+      android:maxLength="40"
+      app:layout_constraintHorizontal_bias="0"
       android:paddingStart="10sp"
       android:paddingTop="3dp"
       android:textColor="@color/colorAccent"
       android:textSize="14sp"
       app:layout_constraintBottom_toBottomOf="@id/mNoteToolbar"
       app:layout_constraintStart_toStartOf="@id/mNoteToolbar"
-      tools:text="@sample/title"
-      />
+      tools:text="@tools:sample/date/ddmmyy"
+      android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/mNoteEdit"/>
 
   <androidx.core.widget.NestedScrollView
       android:layout_width="0dp"
@@ -86,7 +91,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/mNoteToolbar"
       app:layout_constraintVertical_bias="0.0"
-      >
+  >
 
     <TextView
         android:id="@+id/mNoteContent"
@@ -96,7 +101,7 @@
         android:paddingStart="15dp"
         android:textSize="20sp"
         tools:text="@sample/loremipsum"
-        />
+    />
 
   </androidx.core.widget.NestedScrollView>
 

@@ -36,7 +36,9 @@
             android:background="@drawable/tag_bg"
             android:fontFamily="@font/karla"
             android:paddingBottom="3dp"
+            android:maxLength="50"
             android:paddingEnd="10sp"
+            app:layout_constraintHorizontal_bias="0"
             android:paddingStart="10sp"
             android:paddingTop="3dp"
             android:textColor="@color/dark"
@@ -44,7 +46,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@sample/usernames"
-            />
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
             android:id="@+id/mMainEmail"
@@ -55,6 +57,7 @@
             android:background="@drawable/tag_bg"
             android:fontFamily="@font/karla"
             android:paddingBottom="3dp"
+            app:layout_constraintHorizontal_bias="0"
             android:paddingEnd="10sp"
             android:paddingStart="10sp"
             android:paddingTop="3dp"
@@ -63,13 +66,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/mMainUserName"
             tools:text="@sample/emails"
-            />
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"/>
 
         <TextView
             android:id="@+id/mMainNotesCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            app:layout_constraintHorizontal_bias="0"
             android:layout_marginTop="8dp"
             android:background="@drawable/tag_bg"
             android:fontFamily="@font/karla"
@@ -82,7 +86,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/mMainEmail"
             tools:text="@sample/notescounts"
-            />
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"/>
 
       </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -21,19 +21,15 @@ class ServerState private constructor(
 
   init {
     user?.let {
-      App.component()
-          .database()
-          .saveUser(it)
-    }
-    user?.let {
-      App.component()
-          .dataBindings()
-          .updateUser(it)
+      App.component().database().saveUser(it)
+      App.component().dataBindings().updateUser(it)
     }
     note?.let {
-      App.component()
-          .dataBindings()
-          .updateNote(it)
+      App.component().dataBindings().updateNote(it)
+      App.component().database().saveUserNote(it)
+    }
+    deletedNotId?.let {
+      App.component().database().deleteUserNote(it)
     }
   }
 
@@ -53,10 +49,10 @@ class ServerState private constructor(
       authInfo: AuthInfo,
       user: User
     ) =
-      ServerState(authInfo = authInfo, user = user, isSuccessful = true)
+        ServerState(authInfo = authInfo, user = user, isSuccessful = true)
 
     fun failed(reason: String) =
-      ServerState(failureReason = reason, isFailed = true)
+        ServerState(failureReason = reason, isFailed = true)
 
     fun success(note: Note) = ServerState(isSuccessful = true, note = note)
 

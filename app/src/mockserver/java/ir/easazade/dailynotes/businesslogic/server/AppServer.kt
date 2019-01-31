@@ -66,7 +66,7 @@ class AppServer(private val provider: RealmProvider) : AppDatabase(provider), IA
       content?.let { note = note.copy(content = it) }
       color?.let { note = note.copy(color = it) }
       saveUserNote(note)
-      return Observable.just(ServerState.success(getUser()!!))
+      return Observable.just(ServerState.success(note))
           .delay(1000, TimeUnit.MILLISECONDS)
     } ?: return Observable.just(ServerState.failed("no such note"))
         .delay(1000, TimeUnit.MILLISECONDS)

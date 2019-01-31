@@ -18,5 +18,6 @@ interface IAppDatabase {
   fun getUserNote(id: String): Note?
   fun saveUserNote(note: Note)
   fun deleteUserNote(id: String)
+  fun getUpdatedValues(oldNotes: MutableList<Note>): MutableList<Note>
 
 }
