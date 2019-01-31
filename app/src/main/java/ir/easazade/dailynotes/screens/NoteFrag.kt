@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ir.easazade.dailynotes.R
+import ir.easazade.dailynotes.businesslogic.entities.Note
 import ir.easazade.dailynotes.sdk.navigation.Arguments
 import ir.easazade.dailynotes.sdk.navigation.BaseFrag
 import ir.easazade.dailynotes.sdk.navigation.ViewState
@@ -31,7 +32,7 @@ class NoteFrag : BaseFrag<NoteFrag.State, NoteFrag.Args>() {
 
   }
 
-  class Args : Arguments()
+  class Args(note: Note) : Arguments()
   class State(args: Args) : ViewState(args) {
     override fun createUpdate(): ViewState = this
   }

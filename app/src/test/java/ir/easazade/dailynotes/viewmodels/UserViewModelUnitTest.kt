@@ -21,15 +21,15 @@ class UserViewModelUnitTest {
 
   lateinit var loginTaskProgress: TestObserver<Boolean>
   lateinit var loginTaskLoggedIn: TestObserver<User>
-  lateinit var loginTaskFailure: TestObserver<Boolean>
+  lateinit var loginTaskFailure: TestObserver<String>
 
   lateinit var signupProgress: TestObserver<Boolean>
   lateinit var signupSuccess: TestObserver<User>
-  lateinit var signupFailure: TestObserver<Boolean>
+  lateinit var signupFailure: TestObserver<String>
 
   lateinit var syncTaskProgress: TestObserver<Boolean>
   lateinit var syncTaskSuccess: TestObserver<User>
-  lateinit var syncTaskFailure: TestObserver<Boolean>
+  lateinit var syncTaskFailure: TestObserver<String>
 
   lateinit var commonTaskNotConnected: TestObserver<Boolean>
   lateinit var commonTaskNotLoggedIn: TestObserver<Boolean>

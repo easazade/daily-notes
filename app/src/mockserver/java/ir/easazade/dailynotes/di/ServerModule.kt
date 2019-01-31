@@ -30,15 +30,15 @@ class ServerModule : IServerModule {
                   "and result of development process it does not mean "
               val note1 = DbNote(
                   UUID.randomUUID().toString(),
-                  userId, "title1", content, currentTime(), currentTime(), 0x7BDB74.toInt()
+                  userId, "title1", content, currentTime(), currentTime(), "#7BDB74"
               )
               val note2 = DbNote(
                   UUID.randomUUID().toString(),
-                  userId, "title1", content, currentTime(), currentTime(), 0xCC6D6D.toInt()
+                  userId, "title1", content, currentTime(), currentTime(), "#CC6D6D"
               )
               val note3 = DbNote(
                   UUID.randomUUID().toString(),
-                  userId, "title1", content, currentTime(), currentTime(), 0x5FB1CB.toInt()
+                  userId, "title1", content, currentTime(), currentTime(), "#5FB1CB"
               )
               val user = DbUser(
                   userId,

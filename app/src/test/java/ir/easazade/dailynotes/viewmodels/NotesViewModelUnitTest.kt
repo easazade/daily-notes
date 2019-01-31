@@ -24,15 +24,15 @@ class NotesViewModelUnitTest {
 
   lateinit var createNoteTaskProgress: TestObserver<Boolean>
   lateinit var createNoteTaskSuccess: TestObserver<Note>
-  lateinit var createNoteTaskFailure: TestObserver<Boolean>
+  lateinit var createNoteTaskFailure: TestObserver<String>
 
   lateinit var editNoteTaskProgress: TestObserver<Boolean>
   lateinit var editNoteTaskSuccess: TestObserver<Note>
-  lateinit var editNoteTaskFailure: TestObserver<Boolean>
+  lateinit var editNoteTaskFailure: TestObserver<String>
 
   lateinit var deleteNoteTaskProgress: TestObserver<Boolean>
   lateinit var deleteNoteTaskSuccess: TestObserver<Boolean>
-  lateinit var deleteNoteTaskFailure: TestObserver<Boolean>
+  lateinit var deleteNoteTaskFailure: TestObserver<String>
 
   @Before
   fun setup() {

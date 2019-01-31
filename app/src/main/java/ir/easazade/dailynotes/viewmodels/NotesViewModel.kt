@@ -40,7 +40,7 @@ class NotesViewModel(
     )
   }
 
-  fun editNote(noteId: String, title: String? = null, content: String? = null, color: Int? = null) {
+  fun editNote(noteId: String, title: String? = null, content: String? = null, color: String? = null) {
     disposables.add(notesRepo.editNote(noteId, title, content, color)
         .subscribeOn(io).observeOn(ui)
         .subscribe { state ->

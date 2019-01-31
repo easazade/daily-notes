@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
+import ir.easazade.dailynotes.App
 import ir.easazade.dailynotes.R
 import ir.easazade.dailynotes.screens.adapters.HomeListAdapter
 import ir.easazade.dailynotes.sdk.navigation.Arguments
 import ir.easazade.dailynotes.sdk.navigation.BaseFrag
 import ir.easazade.dailynotes.sdk.navigation.ViewState
+import ir.easazade.dailynotes.utils.Roller
 import kotlinx.android.synthetic.main.frag_main.mMainEmail
 import kotlinx.android.synthetic.main.frag_main.mMainList
 import kotlinx.android.synthetic.main.frag_main.mMainNotesCount
@@ -40,8 +42,20 @@ class HomeFrag : BaseFrag<HomeFrag.State, HomeFrag.Args>() {
       mMainEmail.text = user.email
       mMainUserName.text = user.username
       mMainNotesCount.text = "notes : ${user.notes.size}"
-      val adapter = HomeListAdapter(user.notes)
-      mMainList.layoutManager = GridLayoutManager(mActivity,2)
+      val roller = Roller(
+          R.color.note_color_1,
+          R.color.note_color_2,
+          R.color.note_color_3,
+          R.color.note_color_4,
+          R.color.note_color_5,
+          R.color.note_color_6,
+          R.color.note_color_7,
+          R.color.note_color_8
+      )
+      val adapter = HomeListAdapter(user.notes, roller) { note ->
+        App.component().navigator().destination(NoteFrag()).withArguments(NoteFrag.Args(note)).go()
+      }
+      mMainList.layoutManager = GridLayoutManager(mActivity, 2)
       mMainList.adapter = adapter
     }
   }

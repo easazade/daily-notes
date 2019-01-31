@@ -7,7 +7,7 @@ import ir.easazade.dailynotes.businesslogic.states.NState
 interface INotesRepository {
 
   fun createNote(note: Note): Observable<NState>
-  fun editNote(noteId: String, title: String? = null, content: String? = null, color: Int? = null)
+  fun editNote(noteId: String, title: String? = null, content: String? = null, color: String? = null)
       : Observable<NState>
 
   fun deleteNote(noteId: String): Observable<NState>

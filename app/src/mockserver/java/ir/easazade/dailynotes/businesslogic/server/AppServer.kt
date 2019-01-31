@@ -53,7 +53,7 @@ class AppServer(private val provider: RealmProvider) : AppDatabase(provider), IA
     noteId: String,
     title: String?,
     content: String?,
-    color: Int?
+    color: String?
   ): Observable<ServerState> {
     provider.get().where(DbNote::class.java).equalTo("uuid", noteId).findFirst()?.let { result ->
       var note = DbUtils.dbNoteToNote(result)

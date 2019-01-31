@@ -14,9 +14,10 @@ public class DbNote extends RealmObject {
     public String content;
     public Date createdAt;
     public Date updatedAt;
-    public int color;
+    public String color;
 
-    public DbNote(String uuid, String userId, String title, String content, Date createdAt, Date updatedAt, int color) {
+    public DbNote(String uuid, String userId, String title, String content, Date createdAt,
+        Date updatedAt, String color) {
         this.uuid = uuid;
         this.userId = userId;
         this.title = title;
@@ -27,6 +28,7 @@ public class DbNote extends RealmObject {
     }
 
     public DbNote() {
+
     }
 
     public String getUuid() {
@@ -77,11 +79,11 @@ public class DbNote extends RealmObject {
         this.updatedAt = updatedAt;
     }
 
-    public int getColor() {
+    public String getColor() {
         return color;
     }
 
-    public void setColor(int color) {
+    public void setColor(String color) {
         this.color = color;
     }
 }

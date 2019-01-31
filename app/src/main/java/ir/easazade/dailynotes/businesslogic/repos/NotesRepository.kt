@@ -27,7 +27,7 @@ class NotesRepository(
   }
 
   override fun editNote(
-    noteId: String, title: String?, content: String?, color: Int?
+    noteId: String, title: String?, content: String?, color: String?
   ): Observable<NState> {
     return Observable.create { emitter ->
       doOnLoggedIn(emitter) {

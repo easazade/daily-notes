@@ -20,7 +20,7 @@ interface IAppServer {
         noteId: String,
         title: String? = null,
         content: String? = null,
-        color: Int? = null
+        color: String? = null
     ): Observable<ServerState>
 
     fun deleteNote(noteId: String): Observable<ServerState>

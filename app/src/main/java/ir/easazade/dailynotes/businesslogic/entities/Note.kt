@@ -9,6 +9,6 @@ data class Note(
     val content: String,
     val createdAt: Timestamp,
     val updatedAt: Timestamp,
-    val color: Int
+    val color: String
 
 )
