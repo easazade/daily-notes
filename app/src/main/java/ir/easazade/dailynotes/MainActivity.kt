@@ -67,10 +67,11 @@ class MainActivity : BaseActivity() {
     //observing CommonTask
     subscriptions.addAll(
         CommonTask.notLoggedIn.observeOn(AndroidSchedulers.mainThread()).subscribe { notLoggedIn ->
-          if (notLoggedIn)
-            App.component().navigator().destination(LoginFrag()).withArguments(
-                LoginFrag.Args()
-            ).go()
+          if (notLoggedIn) {
+            App.component().navigator().forceClearBackStack()
+            App.component().navigator()
+                .destination(LoginFrag()).withArguments(LoginFrag.Args()).go(false)
+          }
         },
         CommonTask.notConnected.observeOn(AndroidSchedulers.mainThread()).subscribe {
           showNoInternetConnectionSnackBar()
@@ -102,7 +103,9 @@ class MainActivity : BaseActivity() {
 
   override fun onBackPressed() {
     if (findViewById<AddNoteDialog>(
-            R.id.mActivityAddNoteDialog).mState == AddNoteDialog.State.VISIBLE) {
+            R.id.mActivityAddNoteDialog
+        ).mState == AddNoteDialog.State.VISIBLE
+    ) {
       findViewById<AddNoteDialog>(R.id.mActivityAddNoteDialog).hide()
     } else
       App.component().navigator().back()
